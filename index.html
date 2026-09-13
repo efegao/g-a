@@ -55,34 +55,96 @@
 
   <script>
     // İÇECEK DETAY VERİTABANI
-    const drinkDetails = {
-      "Efes fıçı": { fiyat: "250 TL (33cl) / 259 TL (50cl)", icerik: "Klasik fıçı bira, taze ve yüksek içimli.", note: "En hızlı servis edilen bira." },
-      "Efes Malt": { fiyat: "250 TL", icerik: "%100 malt arpadan üretilmiş yumuşak içimli bira.", note: "Yemeklerin yanında nötrleyici olarak çok iyi gider." },
-      "Hoegaarden": { fiyat: "310 TL", icerik: "Belçika buğday birası. Kişniş ve portakal kabuğu aromalı, bulanık ve ferahlatıcı.", note: "Limon dilimiyle servis edilir, deniz ürünlerine çok yakışır." },
-      "Belfast Irish Lager": { fiyat: "310 TL (50cl)", icerik: "Koyu renkli, karamelize malt tatları içeren ferah lager.", note: "Tavuk ve burger yanına çok satar." },
-      "Erdinger": { fiyat: "320 TL", icerik: "Geleneksel Alman buğday birası. Maya aromalı ve yüksek gövdeli.", note: "Peynirli pizzalarla mükemmel uyum sağlar." },
-      "Duvel": { fiyat: "520 TL (33cl)", icerik: "%8.5 alkollü yüksek kaliteli Belçika ale birası. Sert ve meyvemsi.", note: "Ağır ve sert bira isteyen müşteriye öner." },
-      "Amsterdam": { fiyat: "480 TL (50cl)", icerik: "%8.4 alkol oranına sahip sert ve yoğun malt aromalı lager.", note: "Alkol oranı yüksek arayanlara direkt önerilir." },
-      "Gin Tonic": { fiyat: "560 TL", icerik: "Cin, tonik, taze salatalık veya limon dilimi.", note: "En ucuz ve en risksiz kokteyl." },
-      "Tom Collins": { fiyat: "595 TL", icerik: "Cin, taze limon suyu, şeker şurubu ve soda.", note: "Ferahlatıcı, tatlı-ekşi dengeli." },
-      "Mojito": { fiyat: "625 TL", icerik: "Beyaz rom, taze nane, esmer şeker, misket limonu ve soda.", note: "Serinletici klasik tercihlerden biri." },
-      "Lynchburg Lemonade": { fiyat: "660 TL", icerik: "Tennessee viskisi, triple sec, tatlı-ekşi sos ve gazoz.", note: "Alkolü hissettirmez ama hızlı çarpar." },
-      "Long Island": { fiyat: "690 TL", icerik: "Cin, votka, rom, tekila, triple sec, tatlı-ekşi sos ve kola.", note: "Menünün en yüksek alkollü kokteyli." },
-      "Negroni": { fiyat: "675 TL", icerik: "Eşit oranda Cin, Campari ve Kırmızı Tatlı Vermut.", note: "Acımsı (bitter), sofistike ve sert bir klasik." },
-      "Whiskey Sour": { fiyat: "640 TL", icerik: "Viski, taze limon suyu, şeker şurubu ve yumurta akı köpüğü.", note: "Klasik ve karizmatik tercih." },
-      "Kuğulu": { fiyat: "605 TL", icerik: "Meyveli tatlı kokteyl bazı, görsel sunumlu.", note: "Görselliği yüksek, hafif içkili." },
-      "Hot Passion": { fiyat: "650 TL", icerik: "Tropikal meyve aromaları, tekila/votka bazı ve acı sos.", note: "Acıseven ve farklı deneyim arayan müşteriye." },
-      "Daydream": { fiyat: "695 TL", icerik: "Koyu renkli meyve özleri ve premium alkol karışımı.", note: "Romantik masaların en çok satan kokteyli." },
-      "Obsession": { fiyat: "645 TL", icerik: "Tekila, taze fesleğen, karabiber dokunuşu ve narenciye.", note: "Farklı arayıştakilere bu cümleyle sat: 'Bunu çok az kişi bilir.'" },
-      "Kuzuyu Cin Çarptı": { fiyat: "625 TL", icerik: "Cin, salatalık, nane ve ferahlatıcı botanik özler.", note: "En serinletici ve ferahlatıcı kokteyl." },
-      "Cheesecake Martini": { fiyat: "620 TL", icerik: "Kremamsı likörler, vanilya özü ve bisküvit kırıntılı kadeh kenarı.", note: "Yemek sonrası tatlı niyetine satılabilir." },
-      "Red Spanish Sangria": { fiyat: "580 TL", icerik: "Kırmızı şarap, taze meyve taneleri, likör dokunuşu ve tarçın.", note: "Kalabalık gruplara ve masaya neşe katmak için birebir." },
-      "Prosecco": { fiyat: "650 TL (Kadeh) / 2900 TL (Şişe)", icerik: "İtalyan köpüklü beyaz şarabı. Meyvemsi ve canlı kabarcıklı.", note: "Kutlama ve özel an masalarına öner." },
-      "Kabatepe Beyaz": { fiyat: "320 TL (Kadeh)", icerik: "Hafif gövdeli, yüksek asitli ve ferahlatıcı yerli beyaz şarap.", note: "Tavuk ve hafif başlangıçların yanına yaz." },
-      "Sav Blanc": { fiyat: "380 TL (Kadeh)", icerik: "Sauvignon Blanc. Çim, taze yeşil biber ve tropikal meyve aromalı.", note: "Deniz ürünleri ve kalamarın zorunlu eşi." },
-      "Kabatepe Rosé": { fiyat: "320 TL (Kadeh)", icerik: "Kırmızı meyve aromalı, canlı ve dengeli pembe şarap.", note: "Acılı ve baharatlı yemeklerin acısını keser." },
-      "Kabatepe Kırmızı": { fiyat: "320 TL (Kadeh)", icerik: "Orta gövdeli, kırmızı meyve bukelerine sahip rahat içimli kırmızı şarap.", note: "Burger ve pizzaların yanına ideal." }
-    };
+    // İÇECEK DETAY VERİTABANI
+const drinkDetails = {
+  // FIÇI BİRALAR
+  "Efes Fıçı (33cl)": { fiyat: "250 TL", icerik: "Klasik fıçı bira, taze ve yumuşak içim." },
+  "Efes Fıçı (50cl)": { fiyat: "259 TL", icerik: "Klasik fıçı bira, taze ve yumuşak içim." },
+  "Belfast Fıçı (33cl)": { fiyat: "265 TL", icerik: "Özel şerbetçiotu aromalı fıçı bira." },
+  "Belfast Fıçı (50cl)": { fiyat: "310 TL", icerik: "Özel şerbetçiotu aromalı fıçı bira." },
+  "Stella Artois Fıçı (33cl)": { fiyat: "250 TL", icerik: "Belçika menşeili premium fıçı bira." },
+  "Stella Artois Fıçı (50cl)": { fiyat: "290 TL", icerik: "Belçika menşeili premium fıçı bira." },
+
+  // ŞİŞE BİRALAR
+  "Stella Artois (44cl)": { fiyat: "335 TL", icerik: "Premium Belçika lager birası." },
+  "Bud (50cl)": { fiyat: "325 TL", icerik: "Amerikan tarzı lager bira." },
+  "Miller Lime (33cl)": { fiyat: "325 TL", icerik: "Misket limonu aromalı hafif içimli bira." },
+  "Miller (50cl)": { fiyat: "360 TL", icerik: "Yumuşak içimli Amerikan lager." },
+  "Corona (35.5cl)": { fiyat: "430 TL", icerik: "Meksika menşeili, ferahlatıcı hafif bira." },
+  "Efes Malt (50cl)": { fiyat: "305 TL", icerik: "%100 malt arpadan üretilmiş bira." },
+  "Efes +1 (50cl)": { fiyat: "305 TL", icerik: "Dinlendirilmiş ekstra yumuşak içim." },
+  "Efes Green (50cl)": { fiyat: "325 TL", icerik: "Efes özel seri bira." },
+  "Efes Glutensiz (50cl)": { fiyat: "345 TL", icerik: "Glutensiz özel üretim bira." },
+  "Amsterdam (50cl)": { fiyat: "480 TL", icerik: "%8.4 alkol oranına sahip sert ve yoğun malt bira." },
+  "Belfast Irish Lager (50cl)": { fiyat: "319 TL", icerik: "Koyu renkli, karamelize malt tatları sunan lager." },
+  "Beck's (50cl)": { fiyat: "325 TL", icerik: "Alman pilsener tarzı bira." },
+  "Bomonti Filtresiz (50cl)": { fiyat: "345 TL", icerik: "Filtre edilmemiş, yoğun aromalı malt bira." },
+  "Duvel (33cl)": { fiyat: "520 TL", icerik: "%8.5 alkollü yüksek kaliteli Belçika ale birası." },
+  "Erdinger (33cl)": { fiyat: "450 TL", icerik: "Geleneksel Alman buğday birası." },
+  "Hoegaarden (33cl)": { fiyat: "460 TL", icerik: "Belçika buğday birası, kişniş ve portakal kabuğu aromalı." },
+
+  // APERATİFLER
+  "Campari": { fiyat: "420 TL", icerik: "İtalyan aperatifi, acı-tatlı ot aromaları." },
+  "Garrone (Dry/Bianco/Rosso)": { fiyat: "420 TL", icerik: "Aromatik vermut çeşidi." },
+  "Yeni Rakı Tek": { fiyat: "430 TL", icerik: "Geleneksel anason aromalı Türk içkisi." },
+  "Yeni Rakı Duble": { fiyat: "610 TL", icerik: "Geleneksel anason aromalı Türk içkisi." },
+
+  // VOTKA / GIN
+  "Absolut Tek": { fiyat: "445 TL", icerik: "İsveç votkası." },
+  "Absolut Duble": { fiyat: "645 TL", icerik: "İsveç votkası." },
+  "Absolut Elyx Tek": { fiyat: "745 TL", icerik: "Premium el yapımı votka." },
+  "Absolut Elyx Duble": { fiyat: "945 TL", icerik: "Premium el yapımı votka." },
+  "Beefeater Tek": { fiyat: "480 TL", icerik: "London Dry Gin." },
+  "Beefeater Duble": { fiyat: "645 TL", icerik: "London Dry Gin." },
+  "Hendrick's Tek": { fiyat: "695 TL", icerik: "Salatalık ve gül özlü premium cin." },
+  "Hendrick's Duble": { fiyat: "945 TL", icerik: "Salatalık ve gül özlü premium cin." },
+  "Malfy Gin Tek": { fiyat: "525 TL", icerik: "İtalyan aromatik cin." },
+  "Malfy Gin Duble": { fiyat: "725 TL", icerik: "İtalyan aromatik cin." },
+
+  // WHISKY / BOURBON / ROM
+  "Ballantine's Tek": { fiyat: "455 TL", icerik: "Harman İskoç viskisi." },
+  "Ballantine's Duble": { fiyat: "595 TL", icerik: "Harman İskoç viskisi." },
+  "Chivas Regal 12 Tek": { fiyat: "530 TL", icerik: "12 yıllık harman İskoç viskisi." },
+  "Chivas Regal 12 Duble": { fiyat: "695 TL", icerik: "12 yıllık harman İskoç viskisi." },
+  "Chivas XV Tek": { fiyat: "740 TL", icerik: "15 yıllık özel dinlendirilmiş viski." },
+  "Chivas XV Duble": { fiyat: "965 TL", icerik: "15 yıllık özel dinlendirilmiş viski." },
+  "Jameson Irish Tek": { fiyat: "475 TL", icerik: "Üç kez damıtılmış İrlanda viskisi." },
+  "Jameson Irish Duble": { fiyat: "645 TL", icerik: "Üç kez damıtılmış İrlanda viskisi." },
+  "Glenlivet Founders Tek": { fiyat: "550 TL", icerik: "Tek malt İskoç viskisi." },
+  "Glenlivet Founders Duble": { fiyat: "745 TL", icerik: "Tek malt İskoç viskisi." },
+  "Havana Club Añejo 3 Años": { fiyat: "480 TL", icerik: "Küba romu." },
+
+  // LİKÖR & SHOTS
+  "Olmeca Silver Shot": { fiyat: "210 TL", icerik: "Gümüş tekila shot." },
+  "Olmeca Gold Shot": { fiyat: "230 TL", icerik: "Altın tekila shot." },
+  "Jagermeister Shot": { fiyat: "210 TL", icerik: "Alman ot likörü shot." },
+  "Baileys Tek": { fiyat: "380 TL", icerik: "İrlanda krema likörü." },
+  "Baileys Duble": { fiyat: "550 TL", icerik: "İrlanda krema likörü." },
+  "Kahlua Tek": { fiyat: "380 TL", icerik: "Meksika kahve likörü." },
+  "Kahlua Duble": { fiyat: "550 TL", icerik: "Meksika kahve likörü." },
+
+  // KOKTEYLLER
+  "Gin Tonic": { fiyat: "560 TL", icerik: "Cin, tonik, taze salatalık veya limon dilimi." },
+  "Tom Collins": { fiyat: "595 TL", icerik: "Cin, taze limon suyu, şeker şurubu ve soda." },
+  "Kuğulu": { fiyat: "605 TL", icerik: "Meyveli tatlı kokteyl bazı, görsel sunumlu." },
+  "Whiskey Sour": { fiyat: "640 TL", icerik: "Viski, taze limon suyu, şeker şurubu ve yumurta akı." },
+  "Obsession": { fiyat: "645 TL", icerik: "Tekila, taze fesleğen, karabiber dokunuşu ve narenciye." },
+  "Hot Passion": { fiyat: "650 TL", icerik: "Tropikal meyve aromaları, tekila/votka bazı ve acı dokunuş." },
+  "Negroni": { fiyat: "675 TL", icerik: "Eşit oranda Cin, Campari ve Kırmızı Tatlı Vermut." },
+  "Long Island": { fiyat: "690 TL", icerik: "Cin, votka, rom, tekila, triple sec, tatlı-ekşi sos ve kola." },
+  "Daydream": { fiyat: "695 TL", icerik: "Koyu renkli meyve özleri ve premium alkol karışımı." },
+  "Black Angel": { fiyat: "695 TL", icerik: "Özel imza kokteyl karışımı." },
+
+  // ŞARAPLAR & ŞAMPANYALAR
+  "Pamukkale Senfoni Kadeh": { fiyat: "265 TL", icerik: "Kırmızı / Beyaz / Roze sofra şarabı." },
+  "Pamukkale Senfoni Şişe": { fiyat: "1050 TL", icerik: "Kırmızı / Beyaz / Roze sofra şarabı." },
+  "Pamukkale Anfora Kalecik Karası Kadeh": { fiyat: "315 TL", icerik: "Yerli Kalecik Karası üzümlerinden." },
+  "Pamukkale Anfora Kalecik Karası Şişe": { fiyat: "1250 TL", icerik: "Yerli Kalecik Karası üzümlerinden." },
+  "Pamukkale Mulled Wine": { fiyat: "385 TL", icerik: "Baharatlı sıcak şarap." },
+  "Gordon Negro Şişe": { fiyat: "3250 TL", icerik: "Köpüklü şarap / Şampanya." },
+  "Prosecco Kadeh": { fiyat: "450 TL", icerik: "İtalyan köpüklü şarabı." },
+  "Prosecco Şişe": { fiyat: "2250 TL", icerik: "İtalyan köpüklü şarabı." }
+};
 
     // YEMEK VE MOD VERİLERİ
     const data = [
