@@ -99,10 +99,12 @@
       "Pamukkale Anfora Kalecik Karası Kadeh": { fiyat: "315 TL", icerik: "Yerli Kalecik Karası üzümlerinden.", note: "Meyvemsi ve hafif gövdeli." },
       "Pamukkale Anfora Kalecik Karası Şişe": { fiyat: "1250 TL", icerik: "Yerli Kalecik Karası üzümlerinden.", note: "Kırmızı et yanında önerin." },
       "Prosecco Kadeh": { fiyat: "450 TL", icerik: "İtalyan köpüklü şarabı.", note: "Şık başlangıç içeceği." },
-      "Prosecco Şişe": { fiyat: "2250 TL", icerik: "İtalyan köpüklü şarabı.", note: "Özel anlar için köpüklü şarap." }
+      "Prosecco Şişe": { fiyat: "2250 TL", icerik: "İtalyan köpüklü şarabı.", note: "Özel anlar için köpüklü şarap." },
+      "Irish Coffee": { fiyat: "450 TL", icerik: "Sıcak kahve, İrlanda viskisi ve krema.", note: "Tatlı sonrası veya soğuk akşam kapanışı." }
     };
 
     const data = [
+      // MODLAR
       { type: "mod", title: "Yeni geldim, henüz ısınmadım", detail: "Gin Tonic (560₺) / Mojito (625₺)", note: "Sade, tanıdık, risksiz. Konuşmaya başlarken elde bardak olsun." },
       { type: "mod", title: "Arkadaşlarla eğlenceli bir gece", detail: "Red Spanish Sangria (580₺) / Long Island (690₺)", note: "Sangria masaya gelince ortam açılır." },
       { type: "mod", title: "Romantik/özel akşam yemeği", detail: "Daydream (695₺) / Black Angel (695₺)", note: "Koyu, şık, görseli güçlü." },
@@ -110,12 +112,29 @@
       { type: "mod", title: "Doğum günü/kutlama", detail: "Kuğulu (605₺) + Prosecco öner", note: "Önce Kuğulu rengiyle gelsin, sonra Prosecco." },
       { type: "mod", title: "Bugün çok yoruldum, kafamı dağıtacağım", detail: "Long Island (690₺) / Lynchburg Lemonade (660₺)", note: "Long Island söylemeden git. Lynchburg limonata gibi başlar." },
       
+      // YEMEKLER (ATIŞTIRMALIK / BAŞLANGIÇ)
       { type: "yemek", title: "Kaşık Patates / Trüf Patates", bira: ["Efes Fıçı (33cl)", "Hoegaarden (33cl)"], kokteyl: ["Gin Tonic", "Tom Collins"], sarap: ["Pamukkale Senfoni Kadeh"], note: "Hafif başlangıç, içeceği de hafif tut." },
-      { type: "yemek", title: "Dinamit Tavuk", bira: ["Efes Fıçı (50cl)"], kokteyl: ["Kuğulu", "Hot Passion"], sarap: ["Pamukkale Senfoni Kadeh"], note: "Acılı yemek -> meyveli/tatlı içecek acıyı dengeler." },
-      { type: "yemek", title: "Kalamar Tava", bira: ["Hoegaarden (33cl)", "Erdinger (33cl)"], kokteyl: ["Tom Collins", "Gin Tonic"], sarap: ["Pamukkale Senfoni Kadeh"], note: "Deniz ürünü = beyaz şarap, kural bu." },
-      { type: "yemek", title: "Peynir Tabağı", bira: ["Duvel (33cl)", "Hoegaarden (33cl)"], kokteyl: ["Prosecco Kadeh"], sarap: ["Pamukkale Senfoni Kadeh"], note: "Peynir + beyaz/köpüklü = klasik kombinasyon." },
-      { type: "yemek", title: "Hamburger / Cheeseburger", bira: ["Efes Fıçı (50cl)", "Amsterdam (50cl)"], kokteyl: ["Whiskey Sour"], sarap: ["Pamukkale Anfora Kalecik Karası Kadeh"], note: "Burger + bira = evrensel doğru." },
-      { type: "yemek", title: "Fettucini Alfredo", bira: [], kokteyl: ["Tom Collins", "Gin Tonic"], sarap: ["Pamukkale Senfoni Kadeh"], note: "Krema sosu + beyaz şarap = klasik." }
+      { type: "yemek", title: "Dinamit Tavuk", bira: ["Efes Fıçı (50cl)", "Corona (35.5cl)"], kokteyl: ["Kuğulu", "Hot Passion"], sarap: ["Pamukkale Senfoni Kadeh"], note: "Acılı/soslu tavuk -> meyveli veya hafif acı-tatlı kokteyller dengeler." },
+      { type: "yemek", title: "Çıtır Tavuk Parçaları / Basket", bira: ["Efes Fıçı (50cl)", "Miller (50cl)"], kokteyl: ["Tom Collins"], sarap: [], note: "Atıştırmalık basketlerin yanına soğuk fıçı bira veya Miller mükemmel gider." },
+      { type: "yemek", title: "Kalamar Tava", bira: ["Hoegaarden (33cl)", "Erdinger (33cl)"], kokteyl: ["Tom Collins", "Gin Tonic"], sarap: ["Pamukkale Senfoni Kadeh"], note: "Deniz ürünü = ferahlatıcı beyaz şarap veya buğday birası." },
+      { type: "yemek", title: "Nachos (Kıymalı / Peynirli)", bira: ["Corona (35.5cl)", "Efes Fıçı (50cl)"], kokteyl: ["Obsession", "Hot Passion"], sarap: [], note: "Meksika usulü atıştırmalıklar için Corona veya Tekila bazlı kokteyller şart." },
+      { type: "yemek", title: "Peynir Tabağı", bira: ["Duvel (33cl)", "Hoegaarden (33cl)"], kokteyl: ["Prosecco Kadeh"], sarap: ["Pamukkale Senfoni Kadeh"], note: "Peynir tabağı + Prosecco veya gövdeli beyaz şarap zarif bir tercihtir." },
+
+      // ANA YEMEKLER
+      { type: "yemek", title: "Hamburger / Cheeseburger", bira: ["Efes Fıçı (50cl)", "Amsterdam (50cl)"], kokteyl: ["Whiskey Sour"], sarap: ["Pamukkale Anfora Kalecik Karası Kadeh"], note: "Yoğun et ve peynir tadına sert bira veya Kırmızı Şarap çok yakışır." },
+      { type: "yemek", title: "Tavuk Şinitzel / Izgara Tavuk", bira: ["Stella Artois Fıçı (50cl)", "Beck's (50cl)"], kokteyl: ["Gin Tonic"], sarap: ["Pamukkale Senfoni Kadeh"], note: "Beyaz et yanında hafif lager biralar veya taze beyaz şarap önerin." },
+      { type: "yemek", title: "Dana Antrikot / Bonfile", bira: ["Belfast Irish Lager (50cl)", "Amsterdam (50cl)"], kokteyl: ["Negroni", "Whiskey Sour"], sarap: ["Pamukkale Anfora Kalecik Karası Şişe"], note: "Kırmızı et için kesinlikle Anfora Kalecik Karası veya sek sert kokteyl (Negroni)." },
+      { type: "yemek", title: "Izgara Köfte", bira: ["Efes Malt (50cl)", "Bomonti Filtresiz (50cl)"], kokteyl: [], sarap: ["Pamukkale Senfoni Kadeh"], note: "Geleneksel lezzet, yerli malt biralar veya kırmızı şarap ile tamamlanır." },
+
+      // MAKARNALAR & PİZZALAR
+      { type: "yemek", title: "Fettucini Alfredo", bira: ["Stella Artois Fıçı (33cl)"], kokteyl: ["Tom Collins", "Gin Tonic"], sarap: ["Pamukkale Senfoni Kadeh"], note: "Yoğun krema sosunu asiditesi yüksek beyaz şarap veya hafif cin bazlı kokteyl keser." },
+      { type: "yemek", title: "Penne Arrabbiata (Acılı)", bira: ["Bud (50cl)", "Corona (35.5cl)"], kokteyl: ["Hot Passion"], sarap: ["Pamukkale Senfoni Kadeh"], note: "Acılı domates sosu ile ferahlatıcı hafif biralar idealdir." },
+      { type: "yemek", title: "Pizza Margherita / Dört Peynirli", bira: ["Stella Artois Fıçı (50cl)", "Beck's (50cl)"], kokteyl: ["Negroni"], sarap: ["Pamukkale Senfoni Kadeh"], note: "Klasik İtalyan pizzasının yanında Negroni veya hafif kırmızı/roze şarap önerilir." },
+      { type: "yemek", title: "Pizza Pepperoni / Şarküteri", bira: ["Efes Fıçı (50cl)", "Amsterdam (50cl)"], kokteyl: ["Long Island"], sarap: ["Pamukkale Anfora Kalecik Karası Kadeh"], note: "Baharatlı şarküteri etleri soğuk fıçı bira veya gövdeli kırmızı şarap ister." },
+
+      // TATLILAR
+      { type: "yemek", title: "Sıcak Çikolatalı Sufle / Brownie", bira: [], kokteyl: ["Irish Coffee"], sarap: [], note: "Yoğun çikolatalı tatlıların yanına Irish Coffee veya konyak mükemmel kapanıştır." },
+      { type: "yemek", title: "Cheesecake / Meyveli Tatlılar", bira: ["Hoegaarden (33cl)"], kokteyl: ["Prosecco Kadeh", "Kuğulu"], sarap: ["Pamukkale Senfoni Kadeh"], note: "Meyveli tatlılarla köpüklü Prosecco veya tatlı-meyvemsi kokteyller önerin." }
     ];
 
     let currentFilter = 'all';
