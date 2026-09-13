@@ -15,14 +15,14 @@
 
   <!-- Arama ve Filtreler -->
   <div class="sticky top-0 bg-slate-900/95 backdrop-blur border-b border-slate-800 p-4 z-40">
-    <input type="text" id="searchInput" onkeyup="searchItems()" placeholder="Yemek, içecek, şarap, shot veya kampanya ara..." 
+    <input type="text" id="searchInput" onkeyup="searchItems()" placeholder="Yemek, içecek, şarap, shot, kampanya ara..." 
       class="w-full p-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:border-amber-500 text-lg">
     
     <div class="flex gap-2 mt-3 overflow-x-auto pb-1 no-scrollbar">
       <button onclick="filterType('all')" class="px-4 py-2 bg-slate-800 rounded-lg text-sm font-semibold whitespace-nowrap active:bg-amber-600">Hepsini Göster</button>
       <button onclick="filterType('kampanya')" class="px-4 py-2 bg-rose-700 rounded-lg text-sm font-semibold whitespace-nowrap">🔥 Kampanyalar</button>
       <button onclick="filterType('sarap')" class="px-4 py-2 bg-yellow-700 rounded-lg text-sm font-semibold whitespace-nowrap">🍷 Şaraplar</button>
-      <button onclick="filterType('shot')" class="px-4 py-2 bg-red-600 rounded-lg text-sm font-semibold whitespace-nowrap">🥃 6'lı Shotlar</button>
+      <button onclick="filterType('shot')" class="px-4 py-2 bg-red-600 rounded-lg text-sm font-semibold whitespace-nowrap">🥃 Shotlar</button>
       <button onclick="filterType('mod')" class="px-4 py-2 bg-amber-600 rounded-lg text-sm font-semibold whitespace-nowrap">😎 Müşteri Modları</button>
       <button onclick="filterType('yemek')" class="px-4 py-2 bg-emerald-700 rounded-lg text-sm font-semibold whitespace-nowrap">🍽️ Yemekler</button>
       <button onclick="filterType('icecek')" class="px-4 py-2 bg-purple-700 rounded-lg text-sm font-semibold whitespace-nowrap">🍹 İçecekler</button>
@@ -58,11 +58,16 @@
 
   <script>
     const drinkDetails = {
-      // 6'LI SHOTLAR
-      "6'lı Tekila Shot": { fiyat: "950 TL", icerik: "6 adet Tekila shot, tuz ve limon dilimleri ile.", note: "Kalabalık gruplara ve mod yükseltmek isteyen masalara ilk önerilecek seçenek." },
-      "6'lı Votka Shot": { fiyat: "900 TL", icerik: "6 adet aromalı veya sek Votka shot.", note: "Enerjik gruplar için hızlı tüketim seçeneği." },
-      "6'lı Jägerbomb / Jagermeister Shot": { fiyat: "1100 TL", icerik: "6 adet Jagermeister shot (veya Jägerbomb sunumu).", note: "Eğlencenin dozunu artırmak isteyen masalara yönlendirin." },
-      "6 melek 1 Şeytan (Özel Shot Seti)": { fiyat: "1050 TL", icerik: "5 adet tatlı/meyveli shot (melek) ve 1 adet yüksek alkollü/acılı shot (şeytan).", note: "Masada oyun/iddia oynayan arkadaş gruplarına birebir taktik ürün." },
+      // SHOTLAR (Güncel Görsel Verisine Göre)
+      "Olmeca Silver Tequila": { fiyat: "265 TL", icerik: "Olmeca Silver Tekila tek shot.", note: "Klasik tekila shot servisi." },
+      "Tequila Gli Shot": { fiyat: "1475 TL", icerik: "Grup/Toplu tekila shot sunumu.", note: "Kalabalık masalara önerin." },
+      "Tequila 12 Li Shot": { fiyat: "2850 TL", icerik: "12'li özel tekila shot seti.", note: "Eğlenceyi doruğa çıkaran kalabalık gruplar için." },
+      "Jagermeister Shot": { fiyat: "265 TL", icerik: "Tek shot Jagermeister.", note: "Bitkisel likör aroması." },
+      "Jagermeister 6 Li Shot": { fiyat: "1475 TL", icerik: "6'lı Jagermeister shot seti.", note: "Popüler grup shot seçeneği." },
+      "Jagermeister 12 Li Shot": { fiyat: "2850 TL", icerik: "12'li Jagermeister shot seti.", note: "Büyük masalar için ideal." },
+      "Jameson Standart Shot": { fiyat: "265 TL", icerik: "Jameson İrlanda Viskisi tek shot.", note: "Yumuşak içimli viski shot." },
+      "Jameson Standart Shot 6 Li": { fiyat: "1475 TL", icerik: "6'lı Jameson viski shot seti.", note: "Viski seven gruplara." },
+      "Jameson Standart Shot 12 Li": { fiyat: "2850 TL", icerik: "12'li Jameson viski shot seti.", note: "Büyük viski sever gruplar için." },
 
       // BİRALAR
       "Efes Fıçı (33cl)": { fiyat: "250 TL", icerik: "Klasik fıçı bira, taze ve yumuşak içim.", note: "Taze ve hızlı servis edin." },
@@ -71,44 +76,21 @@
       "Belfast Fıçı (50cl)": { fiyat: "310 TL", icerik: "Özel şerbetçiotu aromalı fıçı bira.", note: "Karakteristik malt lezzeti." },
       "Stella Artois Fıçı (33cl)": { fiyat: "250 TL", icerik: "Belçika menşeili premium fıçı bira.", note: "Özel bardağında soğuk servis edilir." },
       "Stella Artois Fıçı (50cl)": { fiyat: "290 TL", icerik: "Belçika menşeili premium fıçı bira.", note: "Hafif ve kaliteli fıçı tercihi." },
-      "Stella Artois (44cl)": { fiyat: "335 TL", icerik: "Premium Belçika lager birası.", note: "Şık servis seçeneği." },
       "Bud (50cl)": { fiyat: "325 TL", icerik: "Amerikan tarzı lager bira.", note: "Hafif içimli, herkesin sevdiği lezzet." },
-      "Miller Lime (33cl)": { fiyat: "325 TL", icerik: "Misket limonu aromalı hafif içimli bira.", note: "Sıcak havalarda ferahlatıcı seçenek." },
       "Miller (50cl)": { fiyat: "360 TL", icerik: "Yumuşak içimli Amerikan lager.", note: "Acı bira sevmeyenlere önerin." },
       "Corona (35.5cl)": { fiyat: "430 TL", icerik: "Meksika menşeili, ferahlatıcı hafif bira.", note: "Limon dilimiyle servis edilir." },
-      "Efes Malt (50cl)": { fiyat: "305 TL", icerik: "%100 malt arpadan üretilmiş bira.", note: "Klasik malt severlere." },
-      "Efes +1 (50cl)": { fiyat: "305 TL", icerik: "Dinlendirilmiş ekstra yumuşak içim.", note: "Dinlenmiş yumuşak tat." },
-      "Efes Green (50cl)": { fiyat: "325 TL", icerik: "Efes özel seri bira.", note: "Farklı Efes lezzeti arayanlara." },
-      "Efes Glutensiz (50cl)": { fiyat: "345 TL", icerik: "Glutensiz özel üretim bira.", note: "Gluten hassasiyeti olan müşterilere önerin." },
       "Amsterdam (50cl)": { fiyat: "480 TL", icerik: "%8.4 alkol oranına sahip sert bira.", note: "Sert bira isteyen müşterinin tercihi." },
-      "Belfast Irish Lager (50cl)": { fiyat: "319 TL", icerik: "Koyu renkli karamelize malt lager.", note: "Koyu malt aroması." },
-      "Beck's (50cl)": { fiyat: "325 TL", icerik: "Alman pilsener tarzı bira.", note: "Geleneksel Alman lezzeti." },
-      "Bomonti Filtresiz (50cl)": { fiyat: "345 TL", icerik: "Filtre edilmemiş malt bira.", note: "Yumuşak ve gövdeli içim." },
-      "Duvel (33cl)": { fiyat: "520 TL", icerik: "%8.5 alkollü Belçika ale birası.", note: "Gurme bira severlere önerin." },
-      "Erdinger (33cl)": { fiyat: "450 TL", icerik: "Geleneksel Alman buğday birası.", note: "Mayalı, gövdeli Alman klasiği." },
       "Hoegaarden (33cl)": { fiyat: "460 TL", icerik: "Belçika buğday birası.", note: "Ferahlatıcı meyvemsi nota." },
 
       // KOKTEYLLER & ALKOLLER
-      "Campari": { fiyat: "420 TL", icerik: "İtalyan aperatifi.", note: "Yemek öncesi iştah açıcı." },
-      "Garrone (Dry/Bianco/Rosso)": { fiyat: "420 TL", icerik: "Aromatik vermut çeşidi.", note: "Buz ve narenciye dilimi ile." },
-      "Yeni Rakı Tek": { fiyat: "430 TL", icerik: "Geleneksel anason aromalı Türk içkisi.", note: "Soğuk su ve buz ile." },
-      "Yeni Rakı Duble": { fiyat: "610 TL", icerik: "Geleneksel anason aromalı Türk içkisi.", note: "Meze ve sohbet eşlikçisi." },
-      "Absolut Tek": { fiyat: "445 TL", icerik: "İsveç votkası.", note: "Enerji veya meyve suyu ile." },
-      "Absolut Duble": { fiyat: "645 TL", icerik: "İsveç votkası.", note: "Sek veya buzlu." },
-      "Beefeater Tek": { fiyat: "480 TL", icerik: "London Dry Gin.", note: "Tonik ve limon ile ikili." },
       "Gin Tonic": { fiyat: "560 TL", icerik: "Cin, tonik, taze salatalık veya limon.", note: "Ferahlatıcı ve risksiz klasik." },
       "Tom Collins": { fiyat: "595 TL", icerik: "Cin, taze limon suyu, şeker şurubu, soda.", note: "Ekşi-tatlı ferahlatıcı kokteyl." },
-      "Kuğulu": { fiyat: "605 TL", icerik: "Meyveli tatlı kokteyl bazı.", note: "Görsel sunumlu özel kokteyl." },
       "Whiskey Sour": { fiyat: "640 TL", icerik: "Viski, limon suyu, şeker şurubu, yumurta akı.", note: "Köpüklü, ekşimsi ve sofistike." },
-      "Obsession": { fiyat: "645 TL", icerik: "Tekila, taze fesleğen, karabiber, narenciye.", note: "Baharatlı ve sıradışı tat." },
-      "Hot Passion": { fiyat: "650 TL", icerik: "Tropikal meyveler, tekila/votka bazı, acı dokunuş.", note: "Acılı ve tropikal dengeli." },
       "Negroni": { fiyat: "675 TL", icerik: "Cin, Campari, Kırmızı Tatlı Vermut.", note: "Sert ve karizmatik içecek." },
       "Long Island": { fiyat: "690 TL", icerik: "Cin, votka, rom, tekila, triple sec, kola.", note: "Yüksek alkollü ve hızlı etki." },
-      "Daydream": { fiyat: "695 TL", icerik: "Koyu meyve özleri, premium alkol.", note: "Romantik ve tatlı profil." },
-      "Black Angel": { fiyat: "695 TL", icerik: "Özel imza kokteyl karışımı.", note: "Gizemli ve görseli güçlü." },
-      "Irish Coffee": { fiyat: "450 TL", icerik: "Sıcak kahve, İrlanda viskisi ve krema.", note: "Tatlı sonrası veya soğuk akşam kapanışı." },
+      "Kuğulu": { fiyat: "605 TL", icerik: "Absolut, nar suyu, passion püre, vanilya şurubu, s00826 mix.", note: "Görsel sunumlu özel kokteyl." },
 
-      // SUVLA ŞARAPLARI (JSON Verisine Uyarlanmış Güncel Liste)
+      // SUVLA ŞARAPLARI
       "Suvla Kabatepe Kırmızı Kadeh": { fiyat: "445 TL", icerik: "Suvla Kabatepe serisi kırmızı kadeh şarap.", note: "Hızlı servis ve kadeh şarap tercih edenler için." },
       "Suvla Kabatepe Beyaz Kadeh": { fiyat: "445 TL", icerik: "Suvla Kabatepe serisi beyaz kadeh şarap.", note: "Ferah ve hafif başlangıçlar için ideal." },
       "Suvla Kabatepe Rose Kadeh": { fiyat: "460 TL", icerik: "Suvla Kabatepe serisi rose kadeh şarap.", note: "Yaz akşamları ve hafif atıştırmalıklar yanına." },
@@ -129,11 +111,12 @@
     };
 
     const data = [
-      // KAMPANYALAR
-      { type: "kampanya", title: "5 Al 4 Öde Bira Kampanyası", detail: "5 Adet Efes Fıçı (50cl) alımında 1 tanesi bedava!", note: "Kalabalık erkek gruplarına veya uzun oturacak masalara doğrudan teklif et." },
-      { type: "kampanya", title: "Combo Snack & Bira Menü", detail: "Basket Patates + Çıtır Tavuk + 2 Adet Efes Fıçı (50cl)", note: "Hızlı karar veremeyen iki kişilik masalara direkt bu menüyü sat." },
-      { type: "kampanya", title: "Burger & Bira Menüsü", detail: "Seçeceğiniz Hamburger + Efes Fıçı (50cl)", note: "Tek başına gelen ya da hızlı atıştırmak isteyen müşteriye ilk önerin." },
-      { type: "kampanya", title: "Şarap & Peynir İkilisi", detail: "Suvla Kabatepe (Kırmızı/Beyaz) + Peynir Tabağı", note: "Çiftlere veya sohbet odaklı masalara premium öneri." },
+      // KAMPANYALAR (Güncel Görsel Verisine Göre)
+      { type: "kampanya", title: "6 Li Kova 50 Cl Bomonti", detail: "1725 TL", note: "Kalabalık gruplara ve bira kovası tercih eden masalara doğrudan teklif et." },
+      { type: "kampanya", title: "6 Li Kova Efes Malt 50 Cl", detail: "1525 TL", note: "Ekonomik kova alternatifi olarak masalara önerin." },
+      { type: "kampanya", title: "Gin Passion Surahi", detail: "2025 TL", note: "Sürahi kokteyl ile paylaşımcı masaların modunu yükseltin." },
+      { type: "kampanya", title: "Pink Pepper Gin Tonic Surahi", detail: "1785 TL", note: "Aromatik sürahi kokteyl tercihi." },
+      { type: "kampanya", title: "Peynir Tabagi + 75cl Kabatepe Şarap", detail: "1795 TL", note: "Çiftlere veya sohbet odaklı şarap masalarına premium öneri." },
 
       // ŞARAPLAR KARTI (Filtreleme İçin)
       { type: "sarap", title: "Suvla Kabatepe Kırmızı Kadeh", detail: "445 TL", note: "Kadeh şarap servisi." },
@@ -154,37 +137,31 @@
       { type: "sarap", title: "Suvla Papaz Karası (75 cl)", detail: "2100 TL", note: "Şişe şarap." },
       { type: "sarap", title: "Garrone Prosecco (75 cl)", detail: "2650 TL", note: "Köpüklü şarap." },
 
-      // 6'LI SHOTLAR KARTLARI
-      { type: "shot", title: "6'lı Tekila Shot", detail: "950 TL", note: "Klasik partileme ve mod yükseltme shotı." },
-      { type: "shot", title: "6'lı Votka Shot", detail: "900 TL", note: "Hızlı etki isteyen gruplara önerin." },
-      { type: "shot", title: "6'lı Jägerbomb Shot", detail: "1100 TL", note: "Enerji ve alkolü bir arada isteyen masalara." },
-      { type: "shot", title: "6 Melek 1 Şeytan Set", detail: "1050 TL", note: "Masada oyun/eğlence döndüren gruplar için birebir." },
+      // SHOTLAR KARTI (Filtreleme İçin)
+      { type: "shot", title: "Olmeca Silver Tequila", detail: "265 TL", note: "Tek shot tekila." },
+      { type: "shot", title: "Tequila Gli Shot", detail: "1475 TL", note: "Toplu/Grup tekila shot seti." },
+      { type: "shot", title: "Tequila 12 Li Shot", detail: "2850 TL", note: "12'li büyük tekila shot seti." },
+      { type: "shot", title: "Jagermeister Shot", detail: "265 TL", note: "Tek shot Jagermeister." },
+      { type: "shot", title: "Jagermeister 6 Li Shot", detail: "1475 TL", note: "6'lı popüler shot seti." },
+      { type: "shot", title: "Jagermeister 12 Li Shot", detail: "2850 TL", note: "12'li büyük shot seti." },
+      { type: "shot", title: "Jameson Standart Shot", detail: "265 TL", note: "Tek shot Jameson viski." },
+      { type: "shot", title: "Jameson Standart Shot 6 Li", detail: "1475 TL", note: "6'lı viski shot seti." },
+      { type: "shot", title: "Jameson Standart Shot 12 Li", detail: "2850 TL", note: "12'li viski shot seti." },
 
       // MODLAR
       { type: "mod", title: "Yeni geldim, henüz ısınmadım", detail: "Gin Tonic (560₺) / Mojito (625₺)", note: "Sade, tanıdık, risksiz. Konuşmaya başlarken elde bardak olsun." },
-      { type: "mod", title: "Arkadaşlarla eğlenceli bir gece", detail: "Red Spanish Sangria (580₺) / Long Island (690₺)", note: "Sangria masaya gelince ortam açılır." },
-      { type: "mod", title: "Romantik/özel akşam yemeği", detail: "Daydream (695₺) / Black Angel (695₺)", note: "Koyu, şık, görseli güçlü." },
+      { type: "mod", title: "Arkadaşlarla eğlenceli bir gece", detail: "Gin Passion Sürahi (2025₺) / Long Island (690₺)", note: "Sürahi kokteyller masaya gelince ortam açılır." },
+      { type: "mod", title: "Romantik/özel akşam yemeği", detail: "Peynir Tabağı + Şarap Kampanyası (1795₺)", note: "Koyu, şık, görseli güçlü." },
       { type: "mod", title: "İş yemeği, resmi ama rahat", detail: "Negroni (675₺) / Whiskey Sour (640₺)", note: "Sofistike görünür, abartısız." },
       { type: "mod", title: "Doğum günü/kutlama", detail: "Kuğulu (605₺) + Prosecco öner", note: "Önce Kuğulu rengiyle gelsin, sonra Prosecco." },
-      { type: "mod", title: "Bugün çok yoruldum, kafamı dağıtacağım", detail: "Long Island (690₺) / Lynchburg Lemonade (660₺)", note: "Long Island söylemeden git. Lynchburg limonata gibi başlar." },
+      { type: "mod", title: "Bugün çok yoruldum, kafamı dağıtacağım", detail: "Long Island (690₺) / 6'lı Kova Bomonti (1725₺)", note: "Kova bira ile rahatlama seçeneği." },
       
       // YEMEKLER
       { type: "yemek", title: "Kaşık Patates / Trüf Patates", bira: ["Efes Fıçı (33cl)", "Hoegaarden (33cl)"], kokteyl: ["Gin Tonic", "Tom Collins"], sarap: ["Suvla Kabatepe Beyaz Kadeh", "Suvla Kabatepe Beyaz (75 cl)"], note: "Hafif başlangıç, içeceği de hafif ve ferah tut." },
-      { type: "yemek", title: "Dinamit Tavuk", bira: ["Efes Fıçı (50cl)", "Corona (35.5cl)"], kokteyl: ["Kuğulu", "Hot Passion"], sarap: ["Suvla Kabatepe Beyaz Kadeh"], note: "Acılı/soslu tavuk -> meyveli kokteyller veya hafif soğuk beyaz şarap acıyı keser." },
       { type: "yemek", title: "Çıtır Tavuk Parçaları / Basket", bira: ["Efes Fıçı (50cl)", "Miller (50cl)"], kokteyl: ["Tom Collins"], sarap: [], note: "Atıştırmalık basketlerin yanına soğuk fıçı bira veya Miller mükemmel gider." },
-      { type: "yemek", title: "Kalamar Tava", bira: ["Hoegaarden (33cl)", "Erdinger (33cl)"], kokteyl: ["Tom Collins", "Gin Tonic"], sarap: ["Suvla Sav Blanc (75 cl)", "Suvla Kabatepe Beyaz Kadeh"], note: "Deniz ürünü = yüksek asiditeli taze Suvla Sauvignon Blanc." },
-      { type: "yemek", title: "Nachos (Kıymalı / Peynirli)", bira: ["Corona (35.5cl)", "Efes Fıçı (50cl)"], kokteyl: ["Obsession", "Hot Passion"], sarap: [], note: "Meksika usulü atıştırmalıklar için Corona veya Tekila bazlı kokteyller şart." },
-      { type: "yemek", title: "Peynir Tabağı", bira: ["Duvel (33cl)", "Hoegaarden (33cl)"], kokteyl: ["Garrone Prosecco (75 cl)"], sarap: ["Suvla Karasakız (75 cl)", "Suvla Sav Blanc (75 cl)"], note: "Peynir tabağı ile Suvla Karasakız veya Prosecco zarif bir ikilidir." },
+      { type: "yemek", title: "Peynir Tabağı", bira: ["Hoegaarden (33cl)"], kokteyl: ["Garrone Prosecco (75 cl)"], sarap: ["Suvla Karasakız (75 cl)", "Peynir Tabagi + 75cl Kabatepe Şarap"], note: "Peynir tabağı ile şarap kampanyasını doğrudan eşleştirin." },
       { type: "yemek", title: "Hamburger / Cheeseburger", bira: ["Efes Fıçı (50cl)", "Amsterdam (50cl)"], kokteyl: ["Whiskey Sour"], sarap: ["Suvla Kabatepe Kırmızı (75 cl)"], note: "Yoğun et ve peynir dengesine gövdeli Suvla Kabatepe Kırmızı çok yakışır." },
-      { type: "yemek", title: "Tavuk Şinitzel / Izgara Tavuk", bira: ["Stella Artois Fıçı (50cl)", "Beck's (50cl)"], kokteyl: ["Gin Tonic"], sarap: ["Suvla Kabatepe Beyaz (75 cl)", "Suvla Karasakız (75 cl)"], note: "Tavuk yemeklerinde ferah Suvla Beyaz veya yumuşak içimli Karasakız önerilir." },
-      { type: "yemek", title: "Dana Antrikot / Bonfile", bira: ["Belfast Irish Lager (50cl)", "Amsterdam (50cl)"], kokteyl: ["Negroni", "Whiskey Sour"], sarap: ["Suvla Cab Sauv Merlot (75 cl)", "Suvla Kitre (75 cl)"], note: "Kırmızı et için zengin aromasıyla Suvla Cab Sauv Merlot veya Kitre." },
-      { type: "yemek", title: "Izgara Köfte", bira: ["Efes Malt (50cl)", "Bomonti Filtresiz (50cl)"], kokteyl: [], sarap: ["Suvla Kabatepe Kırmızı (75 cl)", "Suvla Kabatepe Kırmızı Kadeh"], note: "Geleneksel lezzet, yerli malt biralar veya Suvla Kırmızı ile tamamlanır." },
-      { type: "yemek", title: "Fettucini Alfredo", bira: ["Stella Artois Fıçı (33cl)"], kokteyl: ["Tom Collins", "Gin Tonic"], sarap: ["Suvla Sav Blanc (75 cl)"], note: "Yoğun krema sosunu asiditesi yüksek Suvla Sauvignon Blanc veya hafif cin kokteyli keser." },
-      { type: "yemek", title: "Penne Arrabbiata (Acılı)", bira: ["Bud (50cl)", "Corona (35.5cl)"], kokteyl: ["Hot Passion"], sarap: ["Suvla Kabatepe Kadeh"], note: "Acılı domates sosu ile ferahlatıcı hafif biralar idealdir." },
-      { type: "yemek", title: "Pizza Margherita / Dört Peynirli", bira: ["Stella Artois Fıçı (50cl)", "Beck's (50cl)"], kokteyl: ["Negroni"], sarap: ["Suvla Kabatepe Beyaz (75 cl)"], note: "Klasik pizzanın yanında Negroni veya taze beyaz şarap tercih edilir." },
-      { type: "yemek", title: "Pizza Pepperoni / Şarküteri", bira: ["Efes Fıçı (50cl)", "Amsterdam (50cl)"], kokteyl: ["Long Island"], sarap: ["Suvla Cab Sauv Merlot (75 cl)", "Suvla Kabatepe Kırmızı (75 cl)"], note: "Baharatlı şarküteri etleri soğuk fıçı bira veya gövdeli kırmızı Suvla ister." },
-      { type: "yemek", title: "Sıcak Çikolatalı Sufle / Brownie", bira: [], kokteyl: ["Irish Coffee"], sarap: [], note: "Yoğun çikolatalı tatlıların yanına Irish Coffee mükemmel kapanıştır." },
-      { type: "yemek", title: "Cheesecake / Meyveli Tatlılar", bira: ["Hoegaarden (33cl)"], kokteyl: ["Garrone Prosecco (75 cl)", "Kuğulu"], sarap: [], note: "Meyveli tatlılarla köpüklü Prosecco veya tatlı-meyvemsi kokteyller önerin." }
+      { type: "yemek", title: "Dana Antrikot / Bonfile", bira: ["Amsterdam (50cl)"], kokteyl: ["Negroni", "Whiskey Sour"], sarap: ["Suvla Cab Sauv Merlot (75 cl)", "Suvla Kitre (75 cl)"], note: "Kırmızı et için zengin aromasıyla Suvla Cab Sauv Merlot veya Kitre." }
     ];
 
     let currentFilter = 'all';
@@ -193,7 +170,6 @@
       const list = document.getElementById('contentList');
       list.innerHTML = '';
 
-      // KAMPANYA, ŞARAP, SHOT, MOD VE YEMEK KARTLARI
       data.forEach((item) => {
         if (currentFilter !== 'all' && currentFilter !== item.type) return;
         if (query && !item.title.toLowerCase().includes(query) && !(item.detail && item.detail.toLowerCase().includes(query))) return;
@@ -202,14 +178,16 @@
         card.className = "bg-slate-800 p-4 rounded-xl border border-slate-700/60 shadow-md";
 
         if (item.type === 'kampanya') {
-          card.className = "bg-slate-800 p-4 rounded-xl border border-rose-600/60 shadow-md bg-gradient-to-r from-rose-950/30 to-slate-800";
+          card.className = "bg-slate-800 p-4 rounded-xl border border-rose-600/60 shadow-md bg-gradient-to-r from-rose-950/30 to-slate-800 flex justify-between items-center";
           card.innerHTML = `
-            <div class="flex items-center gap-2 mb-1">
-              <span class="text-xs px-2 py-0.5 rounded bg-rose-900 text-rose-200 border border-rose-700 font-bold">🔥 KAMPANYA</span>
-              <h3 class="font-bold text-rose-300 text-base">${item.title}</h3>
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs px-2 py-0.5 rounded bg-rose-900 text-rose-200 border border-rose-700 font-bold">🔥 KAMPANYA</span>
+                <h3 class="font-bold text-rose-300 text-base">${item.title}</h3>
+              </div>
+              <div class="text-amber-300/90 text-xs italic mt-1">💡 Garson Taktiği: ${item.note}</div>
             </div>
-            <div class="text-slate-100 font-semibold text-sm mb-2">👉 ${item.detail}</div>
-            <div class="text-amber-300/90 text-xs italic bg-slate-900/50 p-2 rounded-lg border border-slate-700/50">💡 Garson Taktiği: ${item.note}</div>
+            <span class="text-emerald-400 font-bold text-sm whitespace-nowrap ml-3">${item.detail}</span>
           `;
         } else if (item.type === 'sarap') {
           card.className = "bg-slate-800 p-4 rounded-xl border border-yellow-700/50 shadow-md flex justify-between items-center cursor-pointer active:bg-slate-700";
@@ -230,7 +208,7 @@
           card.innerHTML = `
             <div>
               <div class="flex items-center gap-2">
-                <span class="text-xs px-2 py-0.5 rounded bg-red-950 text-red-300 border border-red-800">🥃 Shot Seti</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-red-950 text-red-300 border border-red-800">🥃 Shot</span>
                 <h3 class="font-bold text-red-300 text-base">${item.title}</h3>
               </div>
               <p class="text-slate-400 text-xs mt-1">💡 ${item.note}</p>
@@ -257,11 +235,8 @@
         list.appendChild(card);
       });
 
-      // İÇECEK KARTLARI (Şaraplar haricindeki içecekler)
       if (currentFilter === 'all' || currentFilter === 'icecek') {
         Object.keys(drinkDetails).forEach(drinkName => {
-          if (drinkName.includes("Shot")) return; // Shotları hariç tut
-
           if (query && !drinkName.toLowerCase().includes(query) && !drinkDetails[drinkName].icerik.toLowerCase().includes(query)) {
             return;
           }
