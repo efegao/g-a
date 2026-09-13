@@ -2,255 +2,182 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Garson Asistanı</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menü - İçecekler</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body { -webkit-tap-highlight-color: transparent; }
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen pb-10 select-none">
+<body class="bg-gray-900 text-white min-h-screen p-4 font-sans">
 
-  <!-- Arama ve Filtreler -->
-  <div class="sticky top-0 bg-slate-900/95 backdrop-blur border-b border-slate-800 p-4 z-40">
-    <input type="text" id="searchInput" onkeyup="searchItems()" placeholder="Yemek, içecek veya mod ara..." 
-      class="w-full p-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:border-amber-500 text-lg">
-    
-    <div class="flex gap-2 mt-3 overflow-x-auto pb-1 no-scrollbar">
-      <button onclick="filterType('all')" class="px-4 py-2 bg-slate-800 rounded-lg text-sm font-semibold whitespace-nowrap active:bg-amber-600">Hepsini Göster</button>
-      <button onclick="filterType('mod')" class="px-4 py-2 bg-amber-600 rounded-lg text-sm font-semibold whitespace-nowrap">😎 Müşteri Modları</button>
-      <button onclick="filterType('yemek')" class="px-4 py-2 bg-emerald-700 rounded-lg text-sm font-semibold whitespace-nowrap">🍽️ Yemekler</button>
-      <button onclick="filterType('icecek')" class="px-4 py-2 bg-purple-700 rounded-lg text-sm font-semibold whitespace-nowrap">🍹 İçecekler</button>
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-center mb-8 text-yellow-500">İÇECEK MENÜSÜ</h1>
+
+    <!-- İÇECEK KARTLARI GRİD LİSTESİ -->
+    <div id="drinks-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- JavaScript burayı otomatik dolduracak -->
     </div>
   </div>
 
-  <!-- Liste -->
-  <div id="contentList" class="p-4 space-y-3"></div>
-
-  <!-- DETAY MODAL -->
-  <div id="detailModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4" onclick="closeModal(event)">
-    <div class="bg-slate-800 border border-slate-700 w-full max-w-md rounded-2xl p-5 shadow-2xl relative" onclick="event.stopPropagation()">
-      <button onclick="closeModalDirect()" class="absolute top-4 right-4 text-slate-400 text-2xl font-bold p-1">✕</button>
-      
-      <h2 id="modalTitle" class="text-xl font-bold text-amber-400 mb-1 pr-8"></h2>
-      <div id="modalPrice" class="text-emerald-400 font-extrabold text-2xl mb-4"></div>
-
-      <div class="space-y-3 text-sm">
-        <div id="modalContentBox" class="bg-slate-900/70 p-3 rounded-xl border border-slate-700/50 hidden">
-          <span class="text-slate-400 font-semibold block text-xs uppercase mb-1">İçerik & Bilgi</span>
-          <p id="modalContent" class="text-slate-200"></p>
-        </div>
-
-        <div id="modalNoteBox" class="bg-amber-950/40 border border-amber-800/40 p-3 rounded-xl hidden">
-          <span class="text-amber-400 font-semibold block text-xs uppercase mb-1">💡 Garson Taktiği</span>
-          <p id="modalNote" class="text-amber-200/90 italic"></p>
-        </div>
-      </div>
-
-      <button onclick="closeModalDirect()" class="w-full mt-5 py-3 bg-amber-600 active:bg-amber-700 rounded-xl font-bold text-white text-center">Kapat</button>
+  <!-- DETAY MODAL (TIKLAYINCA AÇILAN PENCERE) -->
+  <div id="detail-modal" class="fixed inset-0 bg-black bg-opacity-75 hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-gray-800 rounded-lg p-6 max-w-sm w-full relative border border-yellow-500/30">
+      <h3 id="modal-title" class="text-xl font-bold text-yellow-400 mb-2"></h3>
+      <p id="modal-price" class="text-lg font-semibold text-green-400 mb-4"></p>
+      <p id="modal-desc" class="text-gray-300 text-sm mb-6"></p>
+      <button onclick="closeModal()" class="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 rounded transition">Kapat</button>
     </div>
   </div>
 
   <script>
-    // İÇECEK DETAY VERİTABANI
-    // İÇECEK DETAY VERİTABANI
-const drinkDetails = {
-  // FIÇI BİRALAR
-  "Efes Fıçı (33cl)": { fiyat: "250 TL", icerik: "Klasik fıçı bira, taze ve yumuşak içim." },
-  "Efes Fıçı (50cl)": { fiyat: "259 TL", icerik: "Klasik fıçı bira, taze ve yumuşak içim." },
-  "Belfast Fıçı (33cl)": { fiyat: "265 TL", icerik: "Özel şerbetçiotu aromalı fıçı bira." },
-  "Belfast Fıçı (50cl)": { fiyat: "310 TL", icerik: "Özel şerbetçiotu aromalı fıçı bira." },
-  "Stella Artois Fıçı (33cl)": { fiyat: "250 TL", icerik: "Belçika menşeili premium fıçı bira." },
-  "Stella Artois Fıçı (50cl)": { fiyat: "290 TL", icerik: "Belçika menşeili premium fıçı bira." },
+    // 17 KATEGORİLİ EKSİKSİZ İÇECEK VERİTABANI
+    const drinkDetails = {
+      // 1. FIÇI BİRALAR
+      "Efes Fıçı (33cl)": { fiyat: "250 TL", icerik: "Klasik fıçı bira, taze ve yumuşak içim." },
+      "Efes Fıçı (50cl)": { fiyat: "259 TL", icerik: "Klasik fıçı bira, taze ve yumuşak içim." },
+      "Belfast Fıçı (33cl)": { fiyat: "265 TL", icerik: "Özel şerbetçiotu aromalı fıçı bira." },
+      "Belfast Fıçı (50cl)": { fiyat: "310 TL", icerik: "Özel şerbetçiotu aromalı fıçı bira." },
+      "Stella Artois Fıçı (33cl)": { fiyat: "250 TL", icerik: "Belçika menşeili premium fıçı bira." },
+      "Stella Artois Fıçı (50cl)": { fiyat: "290 TL", icerik: "Belçika menşeili premium fıçı bira." },
 
-  // ŞİŞE BİRALAR
-  "Stella Artois (44cl)": { fiyat: "335 TL", icerik: "Premium Belçika lager birası." },
-  "Bud (50cl)": { fiyat: "325 TL", icerik: "Amerikan tarzı lager bira." },
-  "Miller Lime (33cl)": { fiyat: "325 TL", icerik: "Misket limonu aromalı hafif içimli bira." },
-  "Miller (50cl)": { fiyat: "360 TL", icerik: "Yumuşak içimli Amerikan lager." },
-  "Corona (35.5cl)": { fiyat: "430 TL", icerik: "Meksika menşeili, ferahlatıcı hafif bira." },
-  "Efes Malt (50cl)": { fiyat: "305 TL", icerik: "%100 malt arpadan üretilmiş bira." },
-  "Efes +1 (50cl)": { fiyat: "305 TL", icerik: "Dinlendirilmiş ekstra yumuşak içim." },
-  "Efes Green (50cl)": { fiyat: "325 TL", icerik: "Efes özel seri bira." },
-  "Efes Glutensiz (50cl)": { fiyat: "345 TL", icerik: "Glutensiz özel üretim bira." },
-  "Amsterdam (50cl)": { fiyat: "480 TL", icerik: "%8.4 alkol oranına sahip sert ve yoğun malt bira." },
-  "Belfast Irish Lager (50cl)": { fiyat: "319 TL", icerik: "Koyu renkli, karamelize malt tatları sunan lager." },
-  "Beck's (50cl)": { fiyat: "325 TL", icerik: "Alman pilsener tarzı bira." },
-  "Bomonti Filtresiz (50cl)": { fiyat: "345 TL", icerik: "Filtre edilmemiş, yoğun aromalı malt bira." },
-  "Duvel (33cl)": { fiyat: "520 TL", icerik: "%8.5 alkollü yüksek kaliteli Belçika ale birası." },
-  "Erdinger (33cl)": { fiyat: "450 TL", icerik: "Geleneksel Alman buğday birası." },
-  "Hoegaarden (33cl)": { fiyat: "460 TL", icerik: "Belçika buğday birası, kişniş ve portakal kabuğu aromalı." },
+      // 2. ŞİŞE BİRALAR
+      "Stella Artois (44cl)": { fiyat: "335 TL", icerik: "Premium Belçika lager birası." },
+      "Bud (50cl)": { fiyat: "325 TL", icerik: "Amerikan tarzı lager bira." },
+      "Miller Lime (33cl)": { fiyat: "325 TL", icerik: "Misket limonu aromalı hafif içimli bira." },
+      "Miller (50cl)": { fiyat: "360 TL", icerik: "Yumuşak içimli Amerikan lager." },
+      "Corona (35.5cl)": { fiyat: "430 TL", icerik: "Meksika menşeili, ferahlatıcı hafif bira." },
+      "Efes Malt (50cl)": { fiyat: "305 TL", icerik: "%100 malt arpadan üretilmiş bira." },
+      "Efes +1 (50cl)": { fiyat: "305 TL", icerik: "Dinlendirilmiş ekstra yumuşak içim." },
+      "Efes Green (50cl)": { fiyat: "325 TL", icerik: "Efes özel seri bira." },
+      "Efes Glutensiz (50cl)": { fiyat: "345 TL", icerik: "Glutensiz özel üretim bira." },
+      "Amsterdam (50cl)": { fiyat: "480 TL", icerik: "%8.4 alkol oranına sahip sert ve yoğun malt bira." },
+      "Belfast Irish Lager (50cl)": { fiyat: "319 TL", icerik: "Koyu renkli, karamelize malt tatları sunan lager." },
+      "Beck's (50cl)": { fiyat: "325 TL", icerik: "Alman pilsener tarzı bira." },
+      "Bomonti Filtresiz (50cl)": { fiyat: "345 TL", icerik: "Filtre edilmemiş, yoğun aromalı malt bira." },
+      "Duvel (33cl)": { fiyat: "520 TL", icerik: "%8.5 alkollü yüksek kaliteli Belçika ale birası." },
+      "Erdinger (33cl)": { fiyat: "450 TL", icerik: "Geleneksel Alman buğday birası." },
+      "Hoegaarden (33cl)": { fiyat: "460 TL", icerik: "Belçika buğday birası, kişniş ve portakal kabuğu aromalı." },
 
-  // APERATİFLER
-  "Campari": { fiyat: "420 TL", icerik: "İtalyan aperatifi, acı-tatlı ot aromaları." },
-  "Garrone (Dry/Bianco/Rosso)": { fiyat: "420 TL", icerik: "Aromatik vermut çeşidi." },
-  "Yeni Rakı Tek": { fiyat: "430 TL", icerik: "Geleneksel anason aromalı Türk içkisi." },
-  "Yeni Rakı Duble": { fiyat: "610 TL", icerik: "Geleneksel anason aromalı Türk içkisi." },
+      // 3. APERATİFLER
+      "Campari": { fiyat: "420 TL", icerik: "İtalyan aperatifi, acı-tatlı ot aromaları." },
+      "Garrone (Dry/Bianco/Rosso)": { fiyat: "420 TL", icerik: "Aromatik vermut çeşidi." },
+      "Yeni Rakı Tek": { fiyat: "430 TL", icerik: "Geleneksel anason aromalı Türk içkisi." },
+      "Yeni Rakı Duble": { fiyat: "610 TL", icerik: "Geleneksel anason aromalı Türk içkisi." },
 
-  // VOTKA / GIN
-  "Absolut Tek": { fiyat: "445 TL", icerik: "İsveç votkası." },
-  "Absolut Duble": { fiyat: "645 TL", icerik: "İsveç votkası." },
-  "Absolut Elyx Tek": { fiyat: "745 TL", icerik: "Premium el yapımı votka." },
-  "Absolut Elyx Duble": { fiyat: "945 TL", icerik: "Premium el yapımı votka." },
-  "Beefeater Tek": { fiyat: "480 TL", icerik: "London Dry Gin." },
-  "Beefeater Duble": { fiyat: "645 TL", icerik: "London Dry Gin." },
-  "Hendrick's Tek": { fiyat: "695 TL", icerik: "Salatalık ve gül özlü premium cin." },
-  "Hendrick's Duble": { fiyat: "945 TL", icerik: "Salatalık ve gül özlü premium cin." },
-  "Malfy Gin Tek": { fiyat: "525 TL", icerik: "İtalyan aromatik cin." },
-  "Malfy Gin Duble": { fiyat: "725 TL", icerik: "İtalyan aromatik cin." },
+      // 4. VOTKA / GIN
+      "Absolut Tek": { fiyat: "445 TL", icerik: "İsveç votkası." },
+      "Absolut Duble": { fiyat: "645 TL", icerik: "İsveç votkası." },
+      "Absolut Elyx Tek": { fiyat: "745 TL", icerik: "Premium el yapımı votka." },
+      "Absolut Elyx Duble": { fiyat: "945 TL", icerik: "Premium el yapımı votka." },
+      "Beefeater Tek": { fiyat: "480 TL", icerik: "London Dry Gin." },
+      "Beefeater Duble": { fiyat: "645 TL", icerik: "London Dry Gin." },
+      "Hendrick's Tek": { fiyat: "695 TL", icerik: "Salatalık ve gül özlü premium cin." },
+      "Hendrick's Duble": { fiyat: "945 TL", icerik: "Salatalık ve gül özlü premium cin." },
+      "Malfy Gin Tek": { fiyat: "525 TL", icerik: "İtalyan aromatik cin." },
+      "Malfy Gin Duble": { fiyat: "725 TL", icerik: "İtalyan aromatik cin." },
 
-  // WHISKY / BOURBON / ROM
-  "Ballantine's Tek": { fiyat: "455 TL", icerik: "Harman İskoç viskisi." },
-  "Ballantine's Duble": { fiyat: "595 TL", icerik: "Harman İskoç viskisi." },
-  "Chivas Regal 12 Tek": { fiyat: "530 TL", icerik: "12 yıllık harman İskoç viskisi." },
-  "Chivas Regal 12 Duble": { fiyat: "695 TL", icerik: "12 yıllık harman İskoç viskisi." },
-  "Chivas XV Tek": { fiyat: "740 TL", icerik: "15 yıllık özel dinlendirilmiş viski." },
-  "Chivas XV Duble": { fiyat: "965 TL", icerik: "15 yıllık özel dinlendirilmiş viski." },
-  "Jameson Irish Tek": { fiyat: "475 TL", icerik: "Üç kez damıtılmış İrlanda viskisi." },
-  "Jameson Irish Duble": { fiyat: "645 TL", icerik: "Üç kez damıtılmış İrlanda viskisi." },
-  "Glenlivet Founders Tek": { fiyat: "550 TL", icerik: "Tek malt İskoç viskisi." },
-  "Glenlivet Founders Duble": { fiyat: "745 TL", icerik: "Tek malt İskoç viskisi." },
-  "Havana Club Añejo 3 Años": { fiyat: "480 TL", icerik: "Küba romu." },
+      // 5. SCOTCH'S WHISKY
+      "Ballantine's Tek": { fiyat: "455 TL", icerik: "Harman İskoç viskisi." },
+      "Ballantine's Duble": { fiyat: "595 TL", icerik: "Harman İskoç viskisi." },
+      "Chivas Regal 12 Tek": { fiyat: "530 TL", icerik: "12 yıllık harman İskoç viskisi." },
+      "Chivas Regal 12 Duble": { fiyat: "695 TL", icerik: "12 yıllık harman İskoç viskisi." },
+      "Chivas XV Tek": { fiyat: "740 TL", icerik: "15 yıllık özel dinlendirilmiş viski." },
+      "Chivas XV Duble": { fiyat: "965 TL", icerik: "15 yıllık özel dinlendirilmiş viski." },
 
-  // LİKÖR & SHOTS
-  "Olmeca Silver Shot": { fiyat: "210 TL", icerik: "Gümüş tekila shot." },
-  "Olmeca Gold Shot": { fiyat: "230 TL", icerik: "Altın tekila shot." },
-  "Jagermeister Shot": { fiyat: "210 TL", icerik: "Alman ot likörü shot." },
-  "Baileys Tek": { fiyat: "380 TL", icerik: "İrlanda krema likörü." },
-  "Baileys Duble": { fiyat: "550 TL", icerik: "İrlanda krema likörü." },
-  "Kahlua Tek": { fiyat: "380 TL", icerik: "Meksika kahve likörü." },
-  "Kahlua Duble": { fiyat: "550 TL", icerik: "Meksika kahve likörü." },
+      // 6. IRISH WHISKY
+      "Jameson Irish Tek": { fiyat: "475 TL", icerik: "Üç kez damıtılmış İrlanda viskisi." },
+      "Jameson Irish Duble": { fiyat: "645 TL", icerik: "Üç kez damıtılmış İrlanda viskisi." },
 
-  // KOKTEYLLER
-  "Gin Tonic": { fiyat: "560 TL", icerik: "Cin, tonik, taze salatalık veya limon dilimi." },
-  "Tom Collins": { fiyat: "595 TL", icerik: "Cin, taze limon suyu, şeker şurubu ve soda." },
-  "Kuğulu": { fiyat: "605 TL", icerik: "Meyveli tatlı kokteyl bazı, görsel sunumlu." },
-  "Whiskey Sour": { fiyat: "640 TL", icerik: "Viski, taze limon suyu, şeker şurubu ve yumurta akı." },
-  "Obsession": { fiyat: "645 TL", icerik: "Tekila, taze fesleğen, karabiber dokunuşu ve narenciye." },
-  "Hot Passion": { fiyat: "650 TL", icerik: "Tropikal meyve aromaları, tekila/votka bazı ve acı dokunuş." },
-  "Negroni": { fiyat: "675 TL", icerik: "Eşit oranda Cin, Campari ve Kırmızı Tatlı Vermut." },
-  "Long Island": { fiyat: "690 TL", icerik: "Cin, votka, rom, tekila, triple sec, tatlı-ekşi sos ve kola." },
-  "Daydream": { fiyat: "695 TL", icerik: "Koyu renkli meyve özleri ve premium alkol karışımı." },
-  "Black Angel": { fiyat: "695 TL", icerik: "Özel imza kokteyl karışımı." },
+      // 7. MALT WHISKY
+      "Glenlivet Founders Tek": { fiyat: "550 TL", icerik: "Tek malt İskoç viskisi." },
+      "Glenlivet Founders Duble": { fiyat: "745 TL", icerik: "Tek malt İskoç viskisi." },
 
-  // ŞARAPLAR & ŞAMPANYALAR
-  "Pamukkale Senfoni Kadeh": { fiyat: "265 TL", icerik: "Kırmızı / Beyaz / Roze sofra şarabı." },
-  "Pamukkale Senfoni Şişe": { fiyat: "1050 TL", icerik: "Kırmızı / Beyaz / Roze sofra şarabı." },
-  "Pamukkale Anfora Kalecik Karası Kadeh": { fiyat: "315 TL", icerik: "Yerli Kalecik Karası üzümlerinden." },
-  "Pamukkale Anfora Kalecik Karası Şişe": { fiyat: "1250 TL", icerik: "Yerli Kalecik Karası üzümlerinden." },
-  "Pamukkale Mulled Wine": { fiyat: "385 TL", icerik: "Baharatlı sıcak şarap." },
-  "Gordon Negro Şişe": { fiyat: "3250 TL", icerik: "Köpüklü şarap / Şampanya." },
-  "Prosecco Kadeh": { fiyat: "450 TL", icerik: "İtalyan köpüklü şarabı." },
-  "Prosecco Şişe": { fiyat: "2250 TL", icerik: "İtalyan köpüklü şarabı." }
-};
+      // 8. BOURBON
+      "Jack Daniel's No.7 Tek": { fiyat: "520 TL", icerik: "Amerikan Tenessee viskisi." },
 
-    // YEMEK VE MOD VERİLERİ
-    const data = [
-      { type: "mod", title: "Yeni geldim, henüz ısınmadım", detail: "Gin Tonic (560₺) / Mojito (625₺)", note: "Sade, tanıdık, risksiz. Konuşmaya başlarken elde bardak olsun." },
-      { type: "mod", title: "Arkadaşlarla eğlenceli bir gece", detail: "Red Spanish Sangria (580₺) / Long Island (690₺)", note: "Sangria masaya gelince ortam açılır." },
-      { type: "mod", title: "Romantik/özel akşam yemeği", detail: "Daydream (695₺) / Black Angel (695₺)", note: "Koyu, şık, görseli güçlü." },
-      { type: "mod", title: "İş yemeği, resmi ama rahat", detail: "Negroni (675₺) / Whiskey Sour (640₺)", note: "Sofistike görünür, abartısız." },
-      { type: "mod", title: "Doğum günü/kutlama", detail: "Kuğulu (605₺) + Prosecco öner", note: "Önce Kuğulu rengiyle gelsin, sonra Prosecco." },
-      { type: "mod", title: "Bugün çok yoruldum, kafamı dağıtacağım", detail: "Long Island (690₺) / Lynchburg Lemonade (660₺)", note: "Long Island söylemeden git. Lynchburg limonata gibi başlar." },
-      
-      { type: "yemek", title: "Kaşık Patates / Trüf Patates", bira: ["Efes fıçı", "Hoegaarden"], kokteyl: ["Gin Tonic", "Tom Collins"], sarap: ["Kabatepe Beyaz"], note: "Hafif başlangıç, içeceği de hafif tut." },
-      { type: "yemek", title: "Dinamit Tavuk", bira: ["Efes fıçı"], kokteyl: ["Kuğulu", "Hot Passion"], sarap: ["Kabatepe Rosé"], note: "Acılı yemek -> meyveli/tatlı içecek acıyı dengeler." },
-      { type: "yemek", title: "Kalamar Tava", bira: ["Hoegaarden", "Erdinger"], kokteyl: ["Tom Collins", "Gin Tonic"], sarap: ["Sav Blanc"], note: "Deniz ürünü = beyaz şarap, kural bu." },
-      { type: "yemek", title: "Peynir Tabağı", bira: ["Duvel", "Hoegaarden"], kokteyl: ["Prosecco"], sarap: ["Kabatepe Beyaz", "Sav Blanc"], note: "Peynir + beyaz/köpüklü = klasik kombinasyon." },
-      { type: "yemek", title: "Hamburger / Cheeseburger", bira: ["Efes fıçı", "Amsterdam"], kokteyl: ["Lynchburg Lemonade"], sarap: ["Kabatepe Kırmızı"], note: "Burger + bira = evrensel doğru." },
-      { type: "yemek", title: "Fettucini Alfredo", bira: [], kokteyl: ["Tom Collins", "Gin Tonic"], sarap: ["Kabatepe Beyaz"], note: "Krema sosu + beyaz şarap = klasik." }
-    ];
+      // 9. ROM
+      "Havana Club Añejo 3 Años": { fiyat: "480 TL", icerik: "Küba romu." },
 
-    let currentFilter = 'all';
+      // 10. LİKÖRLER
+      "Skinos Mastika Tek": { fiyat: "390 TL", icerik: "Yunan sakız likörü." },
+      "Baileys Tek": { fiyat: "380 TL", icerik: "İrlanda krema likörü." },
+      "Kahlua Tek": { fiyat: "380 TL", icerik: "Meksika kahve likörü." },
 
-    function renderData(items) {
-      const list = document.getElementById('contentList');
-      list.innerHTML = '';
+      // 11. SHOTS
+      "Olmeca Silver Shot": { fiyat: "210 TL", icerik: "Gümüş tekila shot." },
+      "Olmeca Gold Shot": { fiyat: "230 TL", icerik: "Altın tekila shot." },
+      "Jagermeister Shot": { fiyat: "210 TL", icerik: "Alman ot likörü shot." },
 
-      items.forEach((item) => {
-        if (currentFilter !== 'all' && item.type !== currentFilter) return;
+      // 12. KONYAK / COGNACS
+      "Hennessy V.S": { fiyat: "650 TL", icerik: "Fransız konyak." },
 
+      // 13. KOKTEYLLER
+      "Gin Tonic": { fiyat: "560 TL", icerik: "Cin, tonik, taze salatalık veya limon dilimi." },
+      "Tom Collins": { fiyat: "595 TL", icerik: "Cin, taze limon suyu, şeker şurubu ve soda." },
+      "Kuğulu": { fiyat: "605 TL", icerik: "Meyveli tatlı kokteyl bazı, görsel sunumlu." },
+      "Whiskey Sour": { fiyat: "640 TL", icerik: "Viski, taze limon suyu, şeker şurubu ve yumurta akı." },
+      "Obsession": { fiyat: "645 TL", icerik: "Tekila, taze fesleğen, karabiber dokunuşu ve narenciye." },
+      "Hot Passion": { fiyat: "650 TL", icerik: "Tropikal meyve aromaları, tekila/votka bazı ve acı dokunuş." },
+      "Negroni": { fiyat: "675 TL", icerik: "Eşit oranda Cin, Campari ve Kırmızı Tatlı Vermut." },
+      "Long Island": { fiyat: "690 TL", icerik: "Cin, votka, rom, tekila, triple sec, tatlı-ekşi sos ve kola." },
+      "Daydream": { fiyat: "695 TL", icerik: "Koyu renkli meyve özleri ve premium alkol karışımı." },
+      "Black Angel": { fiyat: "695 TL", icerik: "Özel imza kokteyl karışımı." },
+
+      // 14. ŞARAPLAR
+      "Pamukkale Senfoni Kadeh": { fiyat: "265 TL", icerik: "Kırmızı / Beyaz / Roze sofra şarabı." },
+      "Pamukkale Senfoni Şişe": { fiyat: "1050 TL", icerik: "Kırmızı / Beyaz / Roze sofra şarabı." },
+      "Pamukkale Anfora Kalecik Karası Kadeh": { fiyat: "315 TL", icerik: "Yerli Kalecik Karası üzümlerinden." },
+      "Pamukkale Anfora Kalecik Karası Şişe": { fiyat: "1250 TL", icerik: "Yerli Kalecik Karası üzümlerinden." },
+      "Pamukkale Mulled Wine": { fiyat: "385 TL", icerik: "Baharatlı sıcak şarap." },
+
+      // 15. ALKOLLÜ KAHVELER
+      "Irish Coffee": { fiyat: "450 TL", icerik: "Sıcak kahve, İrlanda viskisi ve krema." },
+
+      // 16. ŞİŞE İÇKİLER
+      "Absolut Votka 70 cl Şişe": { fiyat: "3800 TL", icerik: "Şişe açılış servisi." },
+
+      // 17. ŞAMPANYALAR
+      "Gordon Negro Şişe": { fiyat: "3250 TL", icerik: "Köpüklü şarap / Şampanya." },
+      "Prosecco Kadeh": { fiyat: "450 TL", icerik: "İtalyan köpüklü şarabı." },
+      "Prosecco Şişe": { fiyat: "2250 TL", icerik: "İtalyan köpüklü şarabı." }
+    };
+
+    // LİSTEYİ EKRANA BASAN FONKSİYON
+    function renderMenu() {
+      const container = document.getElementById('drinks-container');
+      container.innerHTML = '';
+
+      Object.keys(drinkDetails).forEach(drinkName => {
+        const item = drinkDetails[drinkName];
+        
         const card = document.createElement('div');
-        card.className = "bg-slate-800 p-4 rounded-xl border border-slate-700/60 shadow-md";
+        card.className = "bg-gray-800 p-4 rounded-lg shadow-md hover:bg-gray-750 transition cursor-pointer flex justify-between items-center border border-gray-700";
+        card.onclick = () => openModal(drinkName, item.fiyat, item.icerik);
 
-        if (item.type === 'mod') {
-          card.innerHTML = `
-            <h3 class="font-bold text-amber-400 text-base mb-1">😎 "${item.title}"</h3>
-            <div class="text-slate-200 font-medium text-sm mb-2">👉 ${item.detail}</div>
-            <div class="text-slate-400 text-xs italic">💡 ${item.note}</div>
-          `;
-        } else {
-          card.innerHTML = `
-            <h3 class="font-bold text-emerald-400 text-lg mb-2 border-b border-slate-700/50 pb-1">🍽️ ${item.title}</h3>
-            <div class="space-y-2 mb-2">
-              ${renderDrinkButtons('Bira', item.bira, 'amber')}
-              ${renderDrinkButtons('Kokteyl', item.kokteyl, 'pink')}
-              ${renderDrinkButtons('Şarap', item.sarap, 'purple')}
-            </div>
-            ${item.note ? `<div class="text-slate-400 text-xs italic bg-slate-900/40 p-2 rounded-lg border border-slate-800">💡 ${item.note}</div>` : ''}
-          `;
-        }
-        list.appendChild(card);
+        card.innerHTML = `
+          <div>
+            <h2 class="font-semibold text-lg text-gray-100">${drinkName}</h2>
+            <p class="text-xs text-gray-400 mt-1 line-clamp-1">${item.icerik}</p>
+          </div>
+          <span class="text-yellow-400 font-bold text-md whitespace-nowrap ml-4">${item.fiyat}</span>
+        `;
+        
+        container.appendChild(card);
       });
     }
 
-    function renderDrinkButtons(label, list, color) {
-      if (!list || list.length === 0) return '';
-      const colorClasses = {
-        amber: 'bg-amber-950/60 text-amber-300 border-amber-800/60 active:bg-amber-800',
-        pink: 'bg-pink-950/60 text-pink-300 border-pink-800/60 active:bg-pink-800',
-        purple: 'bg-purple-950/60 text-purple-300 border-purple-800/60 active:bg-purple-800'
-      };
-
-      const buttons = list.map(drink => `
-        <button onclick="openDrinkModal('${drink}')" class="px-2.5 py-1 rounded-lg border text-xs font-semibold mr-1 mb-1 inline-block ${colorClasses[color]}">
-          ${drink} 🔍
-        </button>
-      `).join('');
-
-      return `<div class="text-xs"><span class="text-slate-400 font-semibold block mb-1">${label}:</span>${buttons}</div>`;
+    // MODAL AÇ / KAPAT
+    function openModal(title, price, desc) {
+      document.getElementById('modal-title').innerText = title;
+      document.getElementById('modal-price').innerText = price;
+      document.getElementById('modal-desc').innerText = desc;
+      document.getElementById('detail-modal').classList.remove('hidden');
     }
 
-    function openDrinkModal(drinkName) {
-      const details = drinkDetails[drinkName] || { fiyat: "Fiyat bilgisi yok", icerik: "Klasik servis içeceği.", note: "Müşterinin damak tadına göre önerin." };
-      
-      document.getElementById('modalTitle').innerText = drinkName;
-      document.getElementById('modalPrice').innerText = details.fiyat;
-      document.getElementById('modalContent').innerText = details.icerik;
-      document.getElementById('modalNote').innerText = details.note;
-
-      document.getElementById('modalContentBox').classList.remove('hidden');
-      document.getElementById('modalNoteBox').classList.remove('hidden');
-      document.getElementById('detailModal').classList.remove('hidden');
+    function closeModal() {
+      document.getElementById('detail-modal').classList.add('hidden');
     }
 
-    function closeModalDirect() {
-      document.getElementById('detailModal').classList.add('hidden');
-    }
-
-    function closeModal(e) {
-      if (e.target.id === 'detailModal') closeModalDirect();
-    }
-
-    function searchItems() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
-      const filtered = data.filter(i => 
-        i.title.toLowerCase().includes(query) || 
-        (i.bira && i.bira.some(b => b.toLowerCase().includes(query))) ||
-        (i.kokteyl && i.kokteyl.some(k => k.toLowerCase().includes(query))) ||
-        (i.sarap && i.sarap.some(s => s.toLowerCase().includes(query)))
-      );
-      renderData(filtered);
-    }
-
-    function filterType(type) {
-      currentFilter = type;
-      searchItems();
-    }
-
-    renderData(data);
+    // SAYFA YÜKLENDİĞİNDE ÇALIŞTIR
+    window.onload = renderMenu;
   </script>
 </body>
 </html>
