@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Garson Asistanı</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { -webkit-tap-highlight-color: transparent; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen pb-10 select-none">
+
+  <!-- Üst Arama ve Mod Navigasyonu -->
+  <div class="sticky top-0 bg-slate-900/95 backdrop-blur border-b border-slate-800 p-4 z-40">
+    <input type="text" id="searchInput" onkeyup="searchItems()" placeholder="Yemek, İçecek veya Mod Ara..." 
+      class="w-full p-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:border-amber-500 text-lg">
+    
+    <div class="flex gap-2 mt-3 overflow-x-auto pb-1">
+      <button onclick="filterType('all')" class="px-4 py-2 bg-slate-800 rounded-lg text-sm font-semibold whitespace-nowrap active:bg-amber-600">Hepsini Göster</button>
+      <button onclick="filterType('mod')" class="px-4 py-2 bg-amber-600 rounded-lg text-sm font-semibold whitespace-nowrap">😎 Müşteri Modları</button>
+      <button onclick="filterType('yemek')" class="px-4 py-2 bg-emerald-700 rounded-lg text-sm font-semibold whitespace-nowrap">🍽️ Yemek Eşleşmeleri</button>
+    </div>
+  </div>
+
+  <!-- Liste Alanı -->
+  <div id="contentList" class="p-4 space-y-3"></div>
+
+  <!-- TIKLAYINCA AÇILAN DETAY POP-UP (MODAL) -->
+  <div id="detailModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4" onclick="closeModal(event)">
+    <div class="bg-slate-800 border border-slate-700 w-full max-w-md rounded-2xl p-5 shadow-2xl relative" onclick="event.stopPropagation()">
+      
+      <button onclick="closeModalDirect()" class="absolute top-4 right-4 text-slate-400 text-2xl font-bold p-1">✕</button>
+      
+      <h2 id="modalTitle" class="text-xl font-bold text-amber-400 mb-1 pr-8"></h2>
+      <div id="modalPrice" class="text-emerald-400 font-extrabold text-2xl mb-4"></div>
+
+      <div class="space-y-3 text-sm">
+        <div id="modalContentBox" class="bg-slate-900/70 p-3 rounded-xl border border-slate-700/50 hidden">
+          <span class="text-slate-400 font-semibold block text-xs uppercase mb-1">İçerik & Detay</span>
+          <p id="modalContent" class="text-slate-200"></p>
+        </div>
+
+        <div id="modalPairingBox" class="bg-slate-900/70 p-3 rounded-xl border border-slate-700/50 hidden space-y-1">
+          <span class="text-slate-400 font-semibold block text-xs uppercase mb-1">Önerilen Eşleşmeler</span>
+          <div id="modalBira" class="text-slate-300"></div>
+          <div id="modalKokteyl" class="text-slate-300"></div>
+          <div id="modalSarap" class="text-slate-300"></div>
+        </div>
+
+        <div id="modalNoteBox" class="bg-amber-950/40 border border-amber-800/40 p-3 rounded-xl hidden">
+          <span class="text-amber-400 font-semibold block text-xs uppercase mb-1">💡 Garson Notu / Taktik</span>
+          <p id="modalNote" class="text-amber-200/90 italic"></p>
+        </div>
+      </div>
+
+      <button onclick="closeModalDirect()" class="w-full mt-5 py-3 bg-amber-600 active:bg-amber-700 rounded-xl font-bold text-white text-center">Kapat</button>
+    </div>
+  </div>
+
+  <script>
+    const data = [
+      // ÖRNEK VERİLER (Geliştirilmiş Fiyat ve İçerikler İle)
+      { 
+        type: "yemek", 
+        title: "Kaşık Patates", 
+        fiyat: "375 TL", 
+        icerik: "Özel baharat çeşnisi ile harmanlanmış kaşık kesim patates kızartması, dip sos ile servis edilir.", 
+        bira: "Efes fıçı, Hoegaarden", 
+        kokteyl: "Gin Tonic, Tom Collins", 
+        sarap: "Kabatepe Beyaz kadeh", 
+        note: "Hafif başlangıç, içeceği de hafif tut." 
+      },
+      { 
+        type: "yemek", 
+        title: "Ortaya Festival (2 kişilik)", 
+        fiyat: "925 TL", 
+        icerik: "Çıtır tavuk parçaları, sosis, kaşık patates, soğan halkası, mozzarella çubukları, özel soslar.", 
+        bira: "6'lı kova Efes Malt 1525₺ — direkt öner", 
+        kokteyl: "Red Spanish Sangria, Long Island", 
+        sarap: "-", 
+        note: "Paylaşım tabağı -> grup içeceği öner." 
+      },
+      { 
+        type: "mod", 
+        title: "Bütçem kısıtlı ama güzel içeyim", 
+        fiyat: "", 
+        icerik: "", 
+        detail: "Gin Tonic (560₺) / Tom Collins (595₺) / Efes 33cl (250₺)", 
+        note: "Bunu yüzüne vurma, seçenekleri bu sırayla sun." 
+      },
+      { 
+        type: "mod", 
+        title: "Romantik/özel akşam yemeği", 
+        fiyat: "", 
+        icerik: "", 
+        detail: "Daydream (695₺) veya Black Angel (695₺)", 
+        note: "Koyu, şık, görseli güçlü. Masada iyi görünür." 
+      }
+    ];
+
+    let currentFilter = 'all';
+
+    function renderData(items) {
+      const list = document.getElementById('contentList');
+      list.innerHTML = '';
+
+      items.forEach((item, index) => {
+        if (currentFilter !== 'all' && item.type !== currentFilter) return;
+
+        const card = document.createElement('div');
+        card.className = "bg-slate-800 p-4 rounded-xl border border-slate-700/60 shadow-md active:scale-[0.98] transition-transform cursor-pointer";
+        card.onclick = () => openModal(item);
+
+        if (item.type === 'mod') {
+          card.innerHTML = `
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-amber-400 text-base">😎 "${item.title}"</h3>
+              <span class="text-xs text-slate-400">Detay ></span>
+            </div>
+            <div class="text-white font-medium text-sm mt-1">👉 ${item.detail}</div>
+          `;
+        } else {
+          card.innerHTML = `
+            <div class="flex justify-between items-start mb-1">
+              <h3 class="font-bold text-emerald-400 text-lg">🍽️ ${item.title}</h3>
+              ${item.fiyat ? `<span class="bg-emerald-950 text-emerald-300 text-xs font-bold px-2 py-1 rounded-lg border border-emerald-800">${item.fiyat}</span>` : ''}
+            </div>
+            <div class="text-xs text-slate-300 mt-2">
+              ${item.bira && item.bira !== '-' ? `<span class="text-amber-500 font-semibold">Bira:</span> ${item.bira}` : ''}
+            </div>
+          `;
+        }
+        list.appendChild(card);
+      });
+    }
+
+    function openModal(item) {
+      document.getElementById('modalTitle').innerText = item.title;
+      document.getElementById('modalPrice').innerText = item.fiyat || item.detail || '';
+      
+      // İçerik alanı
+      const contentBox = document.getElementById('modalContentBox');
+      if (item.icerik) {
+        document.getElementById('modalContent').innerText = item.icerik;
+        contentBox.classList.remove('hidden');
+      } else {
+        contentBox.classList.add('hidden');
+      }
+
+      // Eşleşme alanı
+      const pairingBox = document.getElementById('modalPairingBox');
+      if (item.bira || item.kokteyl || item.sarap) {
+        document.getElementById('modalBira').innerHTML = item.bira ? `<span class="text-amber-500 font-semibold">Bira:</span> ${item.bira}` : '';
+        document.getElementById('modalKokteyl').innerHTML = item.kokteyl ? `<span class="text-pink-400 font-semibold">Kokteyl:</span> ${item.kokteyl}` : '';
+        document.getElementById('modalSarap').innerHTML = item.sarap ? `<span class="text-purple-400 font-semibold">Şarap:</span> ${item.sarap}` : '';
+        pairingBox.classList.remove('hidden');
+      } else {
+        pairingBox.classList.add('hidden');
+      }
+
+      // Not alanı
+      const noteBox = document.getElementById('modalNoteBox');
+      if (item.note) {
+        document.getElementById('modalNote').innerText = item.note;
+        noteBox.classList.remove('hidden');
+      } else {
+        noteBox.classList.add('hidden');
+      }
+
+      document.getElementById('detailModal').classList.remove('hidden');
+    }
+
+    function closeModalDirect() {
+      document.getElementById('detailModal').classList.add('hidden');
+    }
+
+    function closeModal(e) {
+      if (e.target.id === 'detailModal') closeModalDirect();
+    }
+
+    function searchItems() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = data.filter(i => 
+        i.title.toLowerCase().includes(query) || 
+        (i.icerik && i.icerik.toLowerCase().includes(query)) ||
+        (i.bira && i.bira.toLowerCase().includes(query))
+      );
+      renderData(filtered);
+    }
+
+    function filterType(type) {
+      currentFilter = type;
+      searchItems();
+    }
+
+    renderData(data);
+  </script>
+</body>
+</html>
