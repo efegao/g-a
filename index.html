@@ -58,9 +58,9 @@
 
   <script>
     const drinkDetails = {
-      // SHOTLAR (Güncel Görsel Verisine Göre)
+      // SHOTLAR
       "Olmeca Silver Tequila": { fiyat: "265 TL", icerik: "Olmeca Silver Tekila tek shot.", note: "Klasik tekila shot servisi." },
-      "Tequila 6li Shot": { fiyat: "1475 TL", icerik: "Grup/Toplu tekila shot sunumu.", note: "Kalabalık masalara önerin." },
+      "Tequila Gli Shot": { fiyat: "1475 TL", icerik: "Grup/Toplu tekila shot sunumu.", note: "Kalabalık masalara önerin." },
       "Tequila 12 Li Shot": { fiyat: "2850 TL", icerik: "12'li özel tekila shot seti.", note: "Eğlenceyi doruğa çıkaran kalabalık gruplar için." },
       "Jagermeister Shot": { fiyat: "265 TL", icerik: "Tek shot Jagermeister.", note: "Bitkisel likör aroması." },
       "Jagermeister 6 Li Shot": { fiyat: "1475 TL", icerik: "6'lı Jagermeister shot seti.", note: "Popüler grup shot seçeneği." },
@@ -83,12 +83,23 @@
       "Hoegaarden (33cl)": { fiyat: "460 TL", icerik: "Belçika buğday birası.", note: "Ferahlatıcı meyvemsi nota." },
 
       // KOKTEYLLER & ALKOLLER
-      "Gin Tonic": { fiyat: "560 TL", icerik: "Cin, tonik, taze salatalık veya limon.", note: "Ferahlatıcı ve risksiz klasik." },
-      "Tom Collins": { fiyat: "595 TL", icerik: "Cin, taze limon suyu, şeker şurubu, soda.", note: "Ekşi-tatlı ferahlatıcı kokteyl." },
-      "Whiskey Sour": { fiyat: "640 TL", icerik: "Viski, limon suyu, şeker şurubu, yumurta akı.", note: "Köpüklü, ekşimsi ve sofistike." },
-      "Negroni": { fiyat: "675 TL", icerik: "Cin, Campari, Kırmızı Tatlı Vermut.", note: "Sert ve karizmatik içecek." },
-      "Long Island": { fiyat: "690 TL", icerik: "Cin, votka, rom, tekila, triple sec, kola.", note: "Yüksek alkollü ve hızlı etki." },
-      "Kuğulu": { fiyat: "605 TL", icerik: "Absolut, nar suyu, passion püre, vanilya şurubu, s00826 mix.", note: "Görsel sunumlu özel kokteyl." },
+      "Gin Tonic": { fiyat: "560 TL", icerik: "Cin, tonik, taze salatalık veya limon. En ucuz kokteyl, sade ve ferahlatıcı.", note: "Ferahlatıcı ve risksiz klasik." },
+      "Tom Collins": { fiyat: "595 TL", icerik: "Cin, taze limon suyu, şeker şurubu, soda. Soda bazlı en hafif seçenek.", note: "Ekşi-tatlı ferahlatıcı kokteyl." },
+      "Whiskey Sour": { fiyat: "640 TL", icerik: "Viski, limon suyu, şeker şurubu, yumurta akı. Ekşi, sert ve klasik profil.", note: "Köpüklü, ekşimsi ve sofistike." },
+      "Negroni": { fiyat: "675 TL", icerik: "Cin, Campari, Kırmızı Tatlı Vermut. Sert ve karizmatik içecek.", note: "Sert, acımsı ve karakterli." },
+      "Margarita": { fiyat: "620 TL", icerik: "Tekila, Cointreau, taze limon suyu. Ekşi ve sert klasik.", note: "Klasik tuz kaplı kenar sunumu." },
+      "Cheesecake Martini": { fiyat: "620 TL", icerik: "Absolut blue, süt, krema, cheesecake sos, frambuaz bisküvi. En tatlı, kremsi.", note: "Tatlı krizine birebir." },
+      "Kuğulu": { fiyat: "605 TL", icerik: "Absolut, nar suyu, passion püre, vanilya şurubu, s00826 mix. Çok renkli ve meyveli.", note: "Görsel sunumlu özel kokteyl." },
+      "Cluver Club": { fiyat: "620 TL", icerik: "Beefeater pink, frambuaz şurup, limon suyu, çilek. Hafif ve meyveli.", note: "Yaz akşamlarının favorisi." },
+      "Tekila Sunrise": { fiyat: "595 TL", icerik: "Tekila, portakal suyu, grenadine. Tatlı ve meyveli katmanlı sunum.", note: "Görsel olarak dikkat çekici." },
+      "The Original Mojito": { fiyat: "625 TL", icerik: "Rum, nane yaprakları, taze misket limonu, esmer şeker, soda. Fresh ve serinletici.", note: "Nane aromalı ferahlık." },
+      "Kuzuyu Cin Çarptı": { fiyat: "625 TL", icerik: "Kuzukulağı bazlı — yeşil, otsu, farklı ve fresh.", note: "Deneysel ve taze tat arayanlara." },
+      "Black Angel": { fiyat: "695 TL", icerik: "Jameson black barrel, absolut blue, vanilya şurubu, böğürtlen şurubu, s00765 mix. Güçlü ve karmaşık.", note: "Derin aromalı viski/votka karışımı." },
+      "Daydream": { fiyat: "695 TL", icerik: "Aberlour + Jack Daniels + kırmızı şarap. En kompleks ve deneyimli.", note: "Usta içiciler için ağır sıklet." },
+      "Long Island Ice Tea": { fiyat: "690 TL", icerik: "Cin, votka, rom, tekila, triple sec, kola. 5 spirit ile yüksek alkollü ve güçlü.", note: "Yüksek alkollü ve hızlı etki." },
+      "Obsession": { fiyat: "645 TL", icerik: "Olmeca + fesleğen + ananas. İlginç ve karmaşık.", note: "Fesleğen aromalı farklı bir deneyim." },
+      "Hot Passion": { fiyat: "650 TL", icerik: "Havana Club + acı sos + passion. En orijinal ve ev yapımı his.", note: "Acı ve tatlının sıradışı dansı." },
+      "Red Spanish Sangria": { fiyat: "580 TL", icerik: "Tarçın + karanfil + meyve ile harmanlanmış şarap bazlı en sosyal kokteyl.", note: "Paylaşımcı masalar için ideal." },
 
       // SUVLA ŞARAPLARI
       "Suvla Kabatepe Kırmızı Kadeh": { fiyat: "445 TL", icerik: "Suvla Kabatepe serisi kırmızı kadeh şarap.", note: "Hızlı servis ve kadeh şarap tercih edenler için." },
@@ -111,14 +122,14 @@
     };
 
     const data = [
-      // KAMPANYALAR (Güncel Görsel Verisine Göre)
+      // KAMPANYALAR
       { type: "kampanya", title: "6 Li Kova 50 Cl Bomonti", detail: "1725 TL", note: "Kalabalık gruplara ve bira kovası tercih eden masalara doğrudan teklif et." },
       { type: "kampanya", title: "6 Li Kova Efes Malt 50 Cl", detail: "1525 TL", note: "Ekonomik kova alternatifi olarak masalara önerin." },
       { type: "kampanya", title: "Gin Passion Surahi", detail: "2025 TL", note: "Sürahi kokteyl ile paylaşımcı masaların modunu yükseltin." },
       { type: "kampanya", title: "Pink Pepper Gin Tonic Surahi", detail: "1785 TL", note: "Aromatik sürahi kokteyl tercihi." },
       { type: "kampanya", title: "Peynir Tabagi + 75cl Kabatepe Şarap", detail: "1795 TL", note: "Çiftlere veya sohbet odaklı şarap masalarına premium öneri." },
 
-      // ŞARAPLAR KARTI (Filtreleme İçin)
+      // ŞARAPLAR KARTI
       { type: "sarap", title: "Suvla Kabatepe Kırmızı Kadeh", detail: "445 TL", note: "Kadeh şarap servisi." },
       { type: "sarap", title: "Suvla Kabatepe Beyaz Kadeh", detail: "445 TL", note: "Kadeh şarap servisi." },
       { type: "sarap", title: "Suvla Kabatepe Rose Kadeh", detail: "460 TL", note: "Kadeh şarap servisi." },
@@ -137,7 +148,7 @@
       { type: "sarap", title: "Suvla Papaz Karası (75 cl)", detail: "2100 TL", note: "Şişe şarap." },
       { type: "sarap", title: "Garrone Prosecco (75 cl)", detail: "2650 TL", note: "Köpüklü şarap." },
 
-      // SHOTLAR KARTI (Filtreleme İçin)
+      // SHOTLAR KARTI
       { type: "shot", title: "Olmeca Silver Tequila", detail: "265 TL", note: "Tek shot tekila." },
       { type: "shot", title: "Tequila Gli Shot", detail: "1475 TL", note: "Toplu/Grup tekila shot seti." },
       { type: "shot", title: "Tequila 12 Li Shot", detail: "2850 TL", note: "12'li büyük tekila shot seti." },
@@ -148,13 +159,19 @@
       { type: "shot", title: "Jameson Standart Shot 6 Li", detail: "1475 TL", note: "6'lı viski shot seti." },
       { type: "shot", title: "Jameson Standart Shot 12 Li", detail: "2850 TL", note: "12'li viski shot seti." },
 
-      // MODLAR
-      { type: "mod", title: "Yeni geldim, henüz ısınmadım", detail: "Gin Tonic (560₺) / Mojito (625₺)", note: "Sade, tanıdık, risksiz. Konuşmaya başlarken elde bardak olsun." },
-      { type: "mod", title: "Arkadaşlarla eğlenceli bir gece", detail: "Gin Passion Sürahi (2025₺) / Long Island (690₺)", note: "Sürahi kokteyller masaya gelince ortam açılır." },
-      { type: "mod", title: "Romantik/özel akşam yemeği", detail: "Peynir Tabağı + Şarap Kampanyası (1795₺)", note: "Koyu, şık, görseli güçlü." },
-      { type: "mod", title: "İş yemeği, resmi ama rahat", detail: "Negroni (675₺) / Whiskey Sour (640₺)", note: "Sofistike görünür, abartısız." },
-      { type: "mod", title: "Doğum günü/kutlama", detail: "Kuğulu (605₺) + Prosecco öner", note: "Önce Kuğulu rengiyle gelsin, sonra Prosecco." },
-      { type: "mod", title: "Bugün çok yoruldum, kafamı dağıtacağım", detail: "Long Island (690₺) / 6'lı Kova Bomonti (1725₺)", note: "Kova bira ile rahatlama seçeneği." },
+      // MODLAR (Kişiliğe Göre Kokteyl Önerileri Eklendi)
+      { type: "mod", title: "Ekşi, sert, klasik", cocktails: ["Whiskey Sour", "Negroni", "Margarita", "Tom Collins"], detail: "Whiskey Sour (640₺), Negroni (675₺), Margarita (620₺), Tom Collins (595₺)", note: "Net ve karakterli tat arayan, ne istediğini bilen misafir profili." },
+      { type: "mod", title: "Tatlı, meyveli, renkli", cocktails: ["Cheesecake Martini", "Kuğulu", "Cluver Club", "Tekila Sunrise"], detail: "Cheesecake Martini (620₺), Kuğulu (605₺), Cluver Club (620₺), Tekila Sunrise (595₺)", note: "Görsel olarak dikkat çeken ve tatlı profili seven masalar için." },
+      { type: "mod", title: "Fresh, hafif, serin", cocktails: ["Gin Tonic", "The Original Mojito", "Kuzuyu Cin Çarptı", "Tom Collins"], detail: "Gin Tonic (560₺), The Original Mojito (625₺), Kuzuyu Cin Çarptı (625₺), Tom Collins (595₺)", note: "Sıcak yaz akşamları veya bayılmadan uzun süre içmek isteyenler." },
+      { type: "mod", title: "Güçlü, karmaşık, deneyimli", cocktails: ["Black Angel", "Daydream", "Long Island Ice Tea", "Obsession"], detail: "Black Angel (695₺), Daydream (695₺), Long Island Ice Tea (690₺), Obsession (645₺)", note: "Sert içki seven, içkinin katmanlarını ve sek etkisini arayanlar." },
+      { type: "mod", title: "Özel, ev yapımı his", cocktails: ["Hot Passion", "Red Spanish Sangria"], detail: "Hot Passion (650₺), Red Spanish Sangria (580₺)", note: "Sıradanlıktan uzak, butik ve özgün reçete arayanlar." },
+      { type: "mod", title: "Yeni geldim, henüz ısınmadım", cocktails: ["Gin Tonic", "The Original Mojito"], detail: "Gin Tonic (560₺) / Mojito (625₺)", note: "Sade, tanıdık, risksiz. Konuşmaya başlarken elde bardak olsun." },
+      { type: "mod", title: "Arkadaşlarla eğlenceli bir gece", cocktails: ["Gin Passion Surahi", "Long Island Ice Tea"], detail: "Gin Passion Sürahi (2025₺) / Long Island (690₺)", note: "Sürahi kokteyller masaya gelince ortam açılır." },
+      { type: "mod", title: "Romantik/özel akşam yemeği", cocktails: ["Garrone Prosecco (75 cl)"], detail: "Peynir Tabağı + Şarap Kampanyası (1795₺)", note: "Koyu, şık, görseli güçlü." },
+      { type: "mod", title: "İş yemeği, resmi ama rahat", cocktails: ["Negroni", "Whiskey Sour"], detail: "Negroni (675₺) / Whiskey Sour (640₺)", note: "Sofistike görünür, abartısız." },
+      { type: "mod", title: "Doğum günü/kutlama", cocktails: ["Kuğulu", "Garrone Prosecco (75 cl)"], detail: "Kuğulu (605₺) + Prosecco öner", note: "Önce Kuğulu rengiyle gelsin, sonra Prosecco." },
+      { type: "mod", title: "Bugün çok yoruldum, kafamı dağıtacağım", cocktails: ["Long Island Ice Tea", "Efes Fıçı (50cl)"], detail: "Long Island (690₺) / 6'lı Kova Bomonti (1725₺)", note: "Kova bira veya yüksek alkollü kokteylle tam rahatlama." },
+      { type: "mod", title: "Derin sohbet ve gece sonu", cocktails: ["Jagermeister 6 Li Shot", "Whiskey Sour"], detail: "Jagermeister 6'lı Shot (1475₺) veya Whiskey Sour (640₺)", note: "Geceyi noktalamadan önceki son çıkış, koyu sohbet eşlikçisi." },
       
       // YEMEKLER
       { type: "yemek", title: "Kaşık Patates / Trüf Patates", bira: ["Efes Fıçı (33cl)", "Hoegaarden (33cl)"], kokteyl: ["Gin Tonic", "Tom Collins"], sarap: ["Suvla Kabatepe Beyaz Kadeh", "Suvla Kabatepe Beyaz (75 cl)"], note: "Hafif başlangıç, içeceği de hafif ve ferah tut." },
@@ -216,9 +233,16 @@
             <span class="text-emerald-400 font-bold text-sm whitespace-nowrap ml-3">${item.detail}</span>
           `;
         } else if (item.type === 'mod') {
+          let cocktailButtons = '';
+          if (item.cocktails && item.cocktails.length > 0) {
+            cocktailButtons = `<div class="flex flex-wrap gap-1.5 mt-2 mb-2">` + 
+              item.cocktails.map(c => `<button onclick="openDrinkModal('${c}')" class="px-2.5 py-1 bg-amber-950/80 hover:bg-amber-900 border border-amber-700/60 rounded-lg text-amber-200 text-xs font-semibold">🍹 ${c} 🔍</button>`).join('') + 
+              `</div>`;
+          }
           card.innerHTML = `
             <h3 class="font-bold text-amber-400 text-base mb-1">😎 "${item.title}"</h3>
-            <div class="text-slate-200 font-medium text-sm mb-2">👉 ${item.detail}</div>
+            ${cocktailButtons}
+            <div class="text-slate-200 font-medium text-xs mb-1">👉 ${item.detail}</div>
             <div class="text-slate-400 text-xs italic">💡 ${item.note}</div>
           `;
         } else if (item.type === 'yemek') {
