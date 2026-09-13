@@ -15,12 +15,13 @@
 
   <!-- Arama ve Filtreler -->
   <div class="sticky top-0 bg-slate-900/95 backdrop-blur border-b border-slate-800 p-4 z-40">
-    <input type="text" id="searchInput" onkeyup="searchItems()" placeholder="Yemek, içecek, shot veya kampanya ara..." 
+    <input type="text" id="searchInput" onkeyup="searchItems()" placeholder="Yemek, içecek, şarap, shot veya kampanya ara..." 
       class="w-full p-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:border-amber-500 text-lg">
     
     <div class="flex gap-2 mt-3 overflow-x-auto pb-1 no-scrollbar">
       <button onclick="filterType('all')" class="px-4 py-2 bg-slate-800 rounded-lg text-sm font-semibold whitespace-nowrap active:bg-amber-600">Hepsini Göster</button>
       <button onclick="filterType('kampanya')" class="px-4 py-2 bg-rose-700 rounded-lg text-sm font-semibold whitespace-nowrap">🔥 Kampanyalar</button>
+      <button onclick="filterType('sarap')" class="px-4 py-2 bg-yellow-700 rounded-lg text-sm font-semibold whitespace-nowrap">🍷 Şaraplar</button>
       <button onclick="filterType('shot')" class="px-4 py-2 bg-red-600 rounded-lg text-sm font-semibold whitespace-nowrap">🥃 6'lı Shotlar</button>
       <button onclick="filterType('mod')" class="px-4 py-2 bg-amber-600 rounded-lg text-sm font-semibold whitespace-nowrap">😎 Müşteri Modları</button>
       <button onclick="filterType('yemek')" class="px-4 py-2 bg-emerald-700 rounded-lg text-sm font-semibold whitespace-nowrap">🍽️ Yemekler</button>
@@ -107,15 +108,24 @@
       "Black Angel": { fiyat: "695 TL", icerik: "Özel imza kokteyl karışımı.", note: "Gizemli ve görseli güçlü." },
       "Irish Coffee": { fiyat: "450 TL", icerik: "Sıcak kahve, İrlanda viskisi ve krema.", note: "Tatlı sonrası veya soğuk akşam kapanışı." },
 
-      // SUVLA ŞARAPLARI
-      "Suvla Kadeh": { fiyat: "280 TL", icerik: "Günün Suvla kırmızı, beyaz veya roze kadeh şarabı.", note: "Hızlı ve pratik şarap tercihi." },
-      "Suvla Kabatepe Kırmızı Şişe": { fiyat: "1150 TL", icerik: "Çanakkale / Gelibolu bağlarının dengeli kırmızı kupajı.", note: "Kırmızı et ve burger yanında önerin." },
-      "Suvla Kabatepe Beyaz Şişe": { fiyat: "1150 TL", icerik: "Ferahlatıcı, meyvemsi ve canlı beyaz şarap.", note: "Tavuk, makarna ve aperatif eşlikçisi." },
-      "Suvla Karasakız Şişe": { fiyat: "1350 TL", icerik: "Gelibolu'nun yerel üzümü Karasakız'dan yumuşak ve meyvemsi kırmızı.", note: "Hafif kırmızı et ve ızgara tavukla mükemmel uyum." },
-      "Suvla Syrah Şişe": { fiyat: "1450 TL", icerik: "Baharatlı ve gövdeli özel kırmızı şarap.", note: "Antrikot, bonfile ve baharatlı etlerin yanına önerin." },
-      "Suvla Sauvignon Blanc Şişe": { fiyat: "1300 TL", icerik: "Yüksek asiditeli, aromatik ve diri beyaz şarap.", note: "Kalamar, deniz ürünleri ve kremalı makarnalar için ideal." },
-      "Prosecco Kadeh": { fiyat: "450 TL", icerik: "İtalyan köpüklü şarabı.", note: "Şık başlangıç ve kutlama içeceği." },
-      "Prosecco Şişe": { fiyat: "2250 TL", icerik: "İtalyan köpüklü şarabı.", note: "Özel anlar ve tatlı yanına köpüklü şarap." }
+      // SUVLA ŞARAPLARI (JSON Verisine Uyarlanmış Güncel Liste)
+      "Suvla Kabatepe Kırmızı Kadeh": { fiyat: "445 TL", icerik: "Suvla Kabatepe serisi kırmızı kadeh şarap.", note: "Hızlı servis ve kadeh şarap tercih edenler için." },
+      "Suvla Kabatepe Beyaz Kadeh": { fiyat: "445 TL", icerik: "Suvla Kabatepe serisi beyaz kadeh şarap.", note: "Ferah ve hafif başlangıçlar için ideal." },
+      "Suvla Kabatepe Rose Kadeh": { fiyat: "460 TL", icerik: "Suvla Kabatepe serisi rose kadeh şarap.", note: "Yaz akşamları ve hafif atıştırmalıklar yanına." },
+      "Suvla Kabatepe Beyaz (75 cl)": { fiyat: "2100 TL", icerik: "Çanakkale / Gelibolu bağlarının dengeli beyaz kupajı.", note: "Deniz ürünleri, tavuk ve makarnalarla uyumlu." },
+      "Suvla Kabatepe Kırmızı (75 cl)": { fiyat: "2100 TL", icerik: "Çanakkale / Gelibolu bağlarının dengeli kırmızı kupajı.", note: "Kırmızı et ve burger yanında önerin." },
+      "Suvla Kumkale Merlot (75 cl)": { fiyat: "2100 TL", icerik: "Yumuşak içimli, meyvemsi Merlot karakteri.", note: "Hafif et yemekleri ve peynir tabaklarıyla mükemmel." },
+      "Suvla Kalecik Karası (75 cl)": { fiyat: "2100 TL", icerik: "Türkiye'nin özel yerel üzümü Kalecik Karası.", note: "Zarif, düşük tanenli ve çiçeksi aromalı." },
+      "Suvla Karasakız (75 cl)": { fiyat: "2100 TL", icerik: "Gelibolu'nun yerel üzümü Karasakız'dan kırmızı şarap.", note: "Yumuşak ve meyvemsi karakter." },
+      "Suvla Öküzgözü Boğazkere (75 cl)": { fiyat: "2100 TL", icerik: "Anadolu'nun güçlü üzümlerinin muazzam uyumu.", note: "Gövdeli ve karakterli kırmızı şarap severlere." },
+      "Suvla Cab Sauv Merlot (75 cl)": { fiyat: "2375 TL", icerik: "Cabernet Sauvignon ve Merlot kupajı, gövdeli yapı.", note: "Zengin et yemekleri ve gurme tabaklar için." },
+      "Suvla Kitre (75 cl)": { fiyat: "2950 TL", icerik: "Suvla'nın özel prestij seri şarabı.", note: "Özel kutlamalar ve gurme misafirler için üst segment." },
+      "Suvla Sav Blanc (75 cl)": { fiyat: "2100 TL", icerik: "Yüksek asiditeli, aromatik ve diri beyaz şarap.", note: "Kalamar, deniz ürünleri ve kremalı makarnalar için ideal." },
+      "Suvla Kınalı Yapıncak (75 cl)": { fiyat: "2200 TL", icerik: "Trakya'nın yerel Yapıncak üzümünden özel üretim.", note: "Yerel ve özgün tat arayanlara." },
+      "Suvla Kabatepe Blush (75 cl)": { fiyat: "2100 TL", icerik: "Ferahlatıcı, meyve notalı pembe sek şarap.", note: "Salatalar, hafif başlangıçlar ve sıcak günler için." },
+      "Suvla Karasakız Blush (75 cl)": { fiyat: "2375 TL", icerik: "Karasakız üzümünden üretilen özel blush.", note: "Keyifli sohbetler ve başlangıçlar için." },
+      "Suvla Papaz Karası (75 cl)": { fiyat: "2100 TL", icerik: "Trakya'nın köklü Papazkarası üzümünden.", note: "Geleneksel ve farklı bir kırmızı deneyimi." },
+      "Garrone Prosecco (75 cl)": { fiyat: "2650 TL", icerik: "İtalyan köpüklü şarabı.", note: "Özel anlar, kutlamalar ve şık başlangıçlar için." }
     };
 
     const data = [
@@ -124,6 +134,25 @@
       { type: "kampanya", title: "Combo Snack & Bira Menü", detail: "Basket Patates + Çıtır Tavuk + 2 Adet Efes Fıçı (50cl)", note: "Hızlı karar veremeyen iki kişilik masalara direkt bu menüyü sat." },
       { type: "kampanya", title: "Burger & Bira Menüsü", detail: "Seçeceğiniz Hamburger + Efes Fıçı (50cl)", note: "Tek başına gelen ya da hızlı atıştırmak isteyen müşteriye ilk önerin." },
       { type: "kampanya", title: "Şarap & Peynir İkilisi", detail: "Suvla Kabatepe (Kırmızı/Beyaz) + Peynir Tabağı", note: "Çiftlere veya sohbet odaklı masalara premium öneri." },
+
+      // ŞARAPLAR KARTI (Filtreleme İçin)
+      { type: "sarap", title: "Suvla Kabatepe Kırmızı Kadeh", detail: "445 TL", note: "Kadeh şarap servisi." },
+      { type: "sarap", title: "Suvla Kabatepe Beyaz Kadeh", detail: "445 TL", note: "Kadeh şarap servisi." },
+      { type: "sarap", title: "Suvla Kabatepe Rose Kadeh", detail: "460 TL", note: "Kadeh şarap servisi." },
+      { type: "sarap", title: "Suvla Kabatepe Beyaz (75 cl)", detail: "2100 TL", note: "Şişe şarap." },
+      { type: "sarap", title: "Suvla Kabatepe Kırmızı (75 cl)", detail: "2100 TL", note: "Şişe şarap." },
+      { type: "sarap", title: "Suvla Kumkale Merlot (75 cl)", detail: "2100 TL", note: "Şişe şarap." },
+      { type: "sarap", title: "Suvla Kalecik Karası (75 cl)", detail: "2100 TL", note: "Şişe şarap." },
+      { type: "sarap", title: "Suvla Karasakız (75 cl)", detail: "2100 TL", note: "Şişe şarap." },
+      { type: "sarap", title: "Suvla Öküzgözü Boğazkere (75 cl)", detail: "2100 TL", note: "Şişe şarap." },
+      { type: "sarap", title: "Suvla Cab Sauv Merlot (75 cl)", detail: "2375 TL", note: "Şişe şarap." },
+      { type: "sarap", title: "Suvla Kitre (75 cl)", detail: "2950 TL", note: "Prestij seri şişe şarap." },
+      { type: "sarap", title: "Suvla Sav Blanc (75 cl)", detail: "2100 TL", note: "Şişe şarap." },
+      { type: "sarap", title: "Suvla Kınalı Yapıncak (75 cl)", detail: "2200 TL", note: "Şişe şarap." },
+      { type: "sarap", title: "Suvla Kabatepe Blush (75 cl)", detail: "2100 TL", note: "Şişe şarap." },
+      { type: "sarap", title: "Suvla Karasakız Blush (75 cl)", detail: "2375 TL", note: "Şişe şarap." },
+      { type: "sarap", title: "Suvla Papaz Karası (75 cl)", detail: "2100 TL", note: "Şişe şarap." },
+      { type: "sarap", title: "Garrone Prosecco (75 cl)", detail: "2650 TL", note: "Köpüklü şarap." },
 
       // 6'LI SHOTLAR KARTLARI
       { type: "shot", title: "6'lı Tekila Shot", detail: "950 TL", note: "Klasik partileme ve mod yükseltme shotı." },
@@ -140,22 +169,22 @@
       { type: "mod", title: "Bugün çok yoruldum, kafamı dağıtacağım", detail: "Long Island (690₺) / Lynchburg Lemonade (660₺)", note: "Long Island söylemeden git. Lynchburg limonata gibi başlar." },
       
       // YEMEKLER
-      { type: "yemek", title: "Kaşık Patates / Trüf Patates", bira: ["Efes Fıçı (33cl)", "Hoegaarden (33cl)"], kokteyl: ["Gin Tonic", "Tom Collins"], sarap: ["Suvla Kadeh", "Suvla Kabatepe Beyaz Şişe"], note: "Hafif başlangıç, içeceği de hafif ve ferah tut." },
-      { type: "yemek", title: "Dinamit Tavuk", bira: ["Efes Fıçı (50cl)", "Corona (35.5cl)"], kokteyl: ["Kuğulu", "Hot Passion"], sarap: ["Suvla Kadeh"], note: "Acılı/soslu tavuk -> meyveli kokteyller veya hafif soğuk beyaz şarap acıyı keser." },
+      { type: "yemek", title: "Kaşık Patates / Trüf Patates", bira: ["Efes Fıçı (33cl)", "Hoegaarden (33cl)"], kokteyl: ["Gin Tonic", "Tom Collins"], sarap: ["Suvla Kabatepe Beyaz Kadeh", "Suvla Kabatepe Beyaz (75 cl)"], note: "Hafif başlangıç, içeceği de hafif ve ferah tut." },
+      { type: "yemek", title: "Dinamit Tavuk", bira: ["Efes Fıçı (50cl)", "Corona (35.5cl)"], kokteyl: ["Kuğulu", "Hot Passion"], sarap: ["Suvla Kabatepe Beyaz Kadeh"], note: "Acılı/soslu tavuk -> meyveli kokteyller veya hafif soğuk beyaz şarap acıyı keser." },
       { type: "yemek", title: "Çıtır Tavuk Parçaları / Basket", bira: ["Efes Fıçı (50cl)", "Miller (50cl)"], kokteyl: ["Tom Collins"], sarap: [], note: "Atıştırmalık basketlerin yanına soğuk fıçı bira veya Miller mükemmel gider." },
-      { type: "yemek", title: "Kalamar Tava", bira: ["Hoegaarden (33cl)", "Erdinger (33cl)"], kokteyl: ["Tom Collins", "Gin Tonic"], sarap: ["Suvla Sauvignon Blanc Şişe", "Suvla Kadeh"], note: "Deniz ürünü = yüksek asiditeli taze Suvla Sauvignon Blanc." },
+      { type: "yemek", title: "Kalamar Tava", bira: ["Hoegaarden (33cl)", "Erdinger (33cl)"], kokteyl: ["Tom Collins", "Gin Tonic"], sarap: ["Suvla Sav Blanc (75 cl)", "Suvla Kabatepe Beyaz Kadeh"], note: "Deniz ürünü = yüksek asiditeli taze Suvla Sauvignon Blanc." },
       { type: "yemek", title: "Nachos (Kıymalı / Peynirli)", bira: ["Corona (35.5cl)", "Efes Fıçı (50cl)"], kokteyl: ["Obsession", "Hot Passion"], sarap: [], note: "Meksika usulü atıştırmalıklar için Corona veya Tekila bazlı kokteyller şart." },
-      { type: "yemek", title: "Peynir Tabağı", bira: ["Duvel (33cl)", "Hoegaarden (33cl)"], kokteyl: ["Prosecco Kadeh"], sarap: ["Suvla Karasakız Şişe", "Suvla Sauvignon Blanc Şişe"], note: "Peynir tabağı ile Suvla Karasakız veya Prosecco zarif bir ikilidir." },
-      { type: "yemek", title: "Hamburger / Cheeseburger", bira: ["Efes Fıçı (50cl)", "Amsterdam (50cl)"], kokteyl: ["Whiskey Sour"], sarap: ["Suvla Kabatepe Kırmızı Şişe"], note: "Yoğun et ve peynir dengesine gövdeli Suvla Kabatepe Kırmızı çok yakışır." },
-      { type: "yemek", title: "Tavuk Şinitzel / Izgara Tavuk", bira: ["Stella Artois Fıçı (50cl)", "Beck's (50cl)"], kokteyl: ["Gin Tonic"], sarap: ["Suvla Kabatepe Beyaz Şişe", "Suvla Karasakız Şişe"], note: "Tavuk yemeklerinde ferah Suvla Beyaz veya yumuşak içimli Karasakız önerilir." },
-      { type: "yemek", title: "Dana Antrikot / Bonfile", bira: ["Belfast Irish Lager (50cl)", "Amsterdam (50cl)"], kokteyl: ["Negroni", "Whiskey Sour"], sarap: ["Suvla Syrah Şişe"], note: "Kırmızı et için zengin baharatsı aromasıyla kesinlikle Suvla Syrah." },
-      { type: "yemek", title: "Izgara Köfte", bira: ["Efes Malt (50cl)", "Bomonti Filtresiz (50cl)"], kokteyl: [], sarap: ["Suvla Kabatepe Kırmızı Şişe", "Suvla Kadeh"], note: "Geleneksel lezzet, yerli malt biralar veya Suvla Kırmızı ile tamamlanır." },
-      { type: "yemek", title: "Fettucini Alfredo", bira: ["Stella Artois Fıçı (33cl)"], kokteyl: ["Tom Collins", "Gin Tonic"], sarap: ["Suvla Sauvignon Blanc Şişe"], note: "Yoğun krema sosunu asiditesi yüksek Suvla Sauvignon Blanc veya hafif cin kokteyli keser." },
-      { type: "yemek", title: "Penne Arrabbiata (Acılı)", bira: ["Bud (50cl)", "Corona (35.5cl)"], kokteyl: ["Hot Passion"], sarap: ["Suvla Kadeh"], note: "Acılı domates sosu ile ferahlatıcı hafif biralar idealdir." },
-      { type: "yemek", title: "Pizza Margherita / Dört Peynirli", bira: ["Stella Artois Fıçı (50cl)", "Beck's (50cl)"], kokteyl: ["Negroni"], sarap: ["Suvla Kabatepe Beyaz Şişe"], note: "Klasik pizzanın yanında Negroni veya taze beyaz şarap tercih edilir." },
-      { type: "yemek", title: "Pizza Pepperoni / Şarküteri", bira: ["Efes Fıçı (50cl)", "Amsterdam (50cl)"], kokteyl: ["Long Island"], sarap: ["Suvla Syrah Şişe", "Suvla Kabatepe Kırmızı Şişe"], note: "Baharatlı şarküteri etleri soğuk fıçı bira veya gövdeli kırmızı Suvla ister." },
+      { type: "yemek", title: "Peynir Tabağı", bira: ["Duvel (33cl)", "Hoegaarden (33cl)"], kokteyl: ["Garrone Prosecco (75 cl)"], sarap: ["Suvla Karasakız (75 cl)", "Suvla Sav Blanc (75 cl)"], note: "Peynir tabağı ile Suvla Karasakız veya Prosecco zarif bir ikilidir." },
+      { type: "yemek", title: "Hamburger / Cheeseburger", bira: ["Efes Fıçı (50cl)", "Amsterdam (50cl)"], kokteyl: ["Whiskey Sour"], sarap: ["Suvla Kabatepe Kırmızı (75 cl)"], note: "Yoğun et ve peynir dengesine gövdeli Suvla Kabatepe Kırmızı çok yakışır." },
+      { type: "yemek", title: "Tavuk Şinitzel / Izgara Tavuk", bira: ["Stella Artois Fıçı (50cl)", "Beck's (50cl)"], kokteyl: ["Gin Tonic"], sarap: ["Suvla Kabatepe Beyaz (75 cl)", "Suvla Karasakız (75 cl)"], note: "Tavuk yemeklerinde ferah Suvla Beyaz veya yumuşak içimli Karasakız önerilir." },
+      { type: "yemek", title: "Dana Antrikot / Bonfile", bira: ["Belfast Irish Lager (50cl)", "Amsterdam (50cl)"], kokteyl: ["Negroni", "Whiskey Sour"], sarap: ["Suvla Cab Sauv Merlot (75 cl)", "Suvla Kitre (75 cl)"], note: "Kırmızı et için zengin aromasıyla Suvla Cab Sauv Merlot veya Kitre." },
+      { type: "yemek", title: "Izgara Köfte", bira: ["Efes Malt (50cl)", "Bomonti Filtresiz (50cl)"], kokteyl: [], sarap: ["Suvla Kabatepe Kırmızı (75 cl)", "Suvla Kabatepe Kırmızı Kadeh"], note: "Geleneksel lezzet, yerli malt biralar veya Suvla Kırmızı ile tamamlanır." },
+      { type: "yemek", title: "Fettucini Alfredo", bira: ["Stella Artois Fıçı (33cl)"], kokteyl: ["Tom Collins", "Gin Tonic"], sarap: ["Suvla Sav Blanc (75 cl)"], note: "Yoğun krema sosunu asiditesi yüksek Suvla Sauvignon Blanc veya hafif cin kokteyli keser." },
+      { type: "yemek", title: "Penne Arrabbiata (Acılı)", bira: ["Bud (50cl)", "Corona (35.5cl)"], kokteyl: ["Hot Passion"], sarap: ["Suvla Kabatepe Kadeh"], note: "Acılı domates sosu ile ferahlatıcı hafif biralar idealdir." },
+      { type: "yemek", title: "Pizza Margherita / Dört Peynirli", bira: ["Stella Artois Fıçı (50cl)", "Beck's (50cl)"], kokteyl: ["Negroni"], sarap: ["Suvla Kabatepe Beyaz (75 cl)"], note: "Klasik pizzanın yanında Negroni veya taze beyaz şarap tercih edilir." },
+      { type: "yemek", title: "Pizza Pepperoni / Şarküteri", bira: ["Efes Fıçı (50cl)", "Amsterdam (50cl)"], kokteyl: ["Long Island"], sarap: ["Suvla Cab Sauv Merlot (75 cl)", "Suvla Kabatepe Kırmızı (75 cl)"], note: "Baharatlı şarküteri etleri soğuk fıçı bira veya gövdeli kırmızı Suvla ister." },
       { type: "yemek", title: "Sıcak Çikolatalı Sufle / Brownie", bira: [], kokteyl: ["Irish Coffee"], sarap: [], note: "Yoğun çikolatalı tatlıların yanına Irish Coffee mükemmel kapanıştır." },
-      { type: "yemek", title: "Cheesecake / Meyveli Tatlılar", bira: ["Hoegaarden (33cl)"], kokteyl: ["Prosecco Kadeh", "Kuğulu"], sarap: [], note: "Meyveli tatlılarla köpüklü Prosecco veya tatlı-meyvemsi kokteyller önerin." }
+      { type: "yemek", title: "Cheesecake / Meyveli Tatlılar", bira: ["Hoegaarden (33cl)"], kokteyl: ["Garrone Prosecco (75 cl)", "Kuğulu"], sarap: [], note: "Meyveli tatlılarla köpüklü Prosecco veya tatlı-meyvemsi kokteyller önerin." }
     ];
 
     let currentFilter = 'all';
@@ -164,7 +193,7 @@
       const list = document.getElementById('contentList');
       list.innerHTML = '';
 
-      // KAMPANYA, SHOT, MOD VE YEMEK KARTLARI
+      // KAMPANYA, ŞARAP, SHOT, MOD VE YEMEK KARTLARI
       data.forEach((item) => {
         if (currentFilter !== 'all' && currentFilter !== item.type) return;
         if (query && !item.title.toLowerCase().includes(query) && !(item.detail && item.detail.toLowerCase().includes(query))) return;
@@ -181,6 +210,19 @@
             </div>
             <div class="text-slate-100 font-semibold text-sm mb-2">👉 ${item.detail}</div>
             <div class="text-amber-300/90 text-xs italic bg-slate-900/50 p-2 rounded-lg border border-slate-700/50">💡 Garson Taktiği: ${item.note}</div>
+          `;
+        } else if (item.type === 'sarap') {
+          card.className = "bg-slate-800 p-4 rounded-xl border border-yellow-700/50 shadow-md flex justify-between items-center cursor-pointer active:bg-slate-700";
+          card.onclick = () => openDrinkModal(item.title);
+          card.innerHTML = `
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs px-2 py-0.5 rounded bg-yellow-950 text-yellow-300 border border-yellow-800">🍷 Şarap</span>
+                <h3 class="font-bold text-yellow-300 text-base">${item.title}</h3>
+              </div>
+              <p class="text-slate-400 text-xs mt-1">💡 ${item.note}</p>
+            </div>
+            <span class="text-emerald-400 font-bold text-sm whitespace-nowrap ml-3">${item.detail}</span>
           `;
         } else if (item.type === 'shot') {
           card.className = "bg-slate-800 p-4 rounded-xl border border-red-700/50 shadow-md flex justify-between items-center cursor-pointer active:bg-slate-700";
@@ -215,10 +257,10 @@
         list.appendChild(card);
       });
 
-      // İÇECEK KARTLARI
+      // İÇECEK KARTLARI (Şaraplar haricindeki içecekler)
       if (currentFilter === 'all' || currentFilter === 'icecek') {
         Object.keys(drinkDetails).forEach(drinkName => {
-          if (drinkName.includes("Shot")) return;
+          if (drinkName.includes("Shot")) return; // Shotları hariç tut
 
           if (query && !drinkName.toLowerCase().includes(query) && !drinkDetails[drinkName].icerik.toLowerCase().includes(query)) {
             return;
