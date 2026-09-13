@@ -110,7 +110,7 @@
       // SUVLA ŞARAPLARI
       "Suvla Kadeh": { fiyat: "280 TL", icerik: "Günün Suvla kırmızı, beyaz veya roze kadeh şarabı.", note: "Hızlı ve pratik şarap tercihi." },
       "Suvla Kabatepe Kırmızı Şişe": { fiyat: "1150 TL", icerik: "Çanakkale / Gelibolu bağlarının dengeli kırmızı kupajı.", note: "Kırmızı et ve burger yanında önerin." },
-      "Suvla Kabatepe Beyaz Şişe": { fiyat: "1150 TL", icerik: "Ferahlatıcı, meyvemsi ve canlı beyaz şarap.", note: "Tavuk, makarna ve aperitif eşlikçisi." },
+      "Suvla Kabatepe Beyaz Şişe": { fiyat: "1150 TL", icerik: "Ferahlatıcı, meyvemsi ve canlı beyaz şarap.", note: "Tavuk, makarna ve aperatif eşlikçisi." },
       "Suvla Karasakız Şişe": { fiyat: "1350 TL", icerik: "Gelibolu'nun yerel üzümü Karasakız'dan yumuşak ve meyvemsi kırmızı.", note: "Hafif kırmızı et ve ızgara tavukla mükemmel uyum." },
       "Suvla Syrah Şişe": { fiyat: "1450 TL", icerik: "Baharatlı ve gövdeli özel kırmızı şarap.", note: "Antrikot, bonfile ve baharatlı etlerin yanına önerin." },
       "Suvla Sauvignon Blanc Şişe": { fiyat: "1300 TL", icerik: "Yüksek asiditeli, aromatik ve diri beyaz şarap.", note: "Kalamar, deniz ürünleri ve kremalı makarnalar için ideal." },
@@ -218,7 +218,7 @@
       // İÇECEK KARTLARI
       if (currentFilter === 'all' || currentFilter === 'icecek') {
         Object.keys(drinkDetails).forEach(drinkName => {
-          if (drinkName.includes("Shot")) return; // Shotları ayrı kategoride gösterdiğimiz için burada mükerrer basmıyoruz
+          if (drinkName.includes("Shot")) return;
 
           if (query && !drinkName.toLowerCase().includes(query) && !drinkDetails[drinkName].icerik.toLowerCase().includes(query)) {
             return;
