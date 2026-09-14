@@ -159,7 +159,7 @@
       { type: "shot", title: "Jameson Standart Shot 6 Li", detail: "1475 TL", note: "6'lı viski shot seti." },
       { type: "shot", title: "Jameson Standart Shot 12 Li", detail: "2850 TL", note: "12'li viski shot seti." },
 
-      // MODLAR (Kişiliğe Göre Kokteyl Önerileri Eklendi)
+      // MODLAR
       { type: "mod", title: "Ekşi, sert, klasik", cocktails: ["Whiskey Sour", "Negroni", "Margarita", "Tom Collins"], detail: "Whiskey Sour (640₺), Negroni (675₺), Margarita (620₺), Tom Collins (595₺)", note: "Net ve karakterli tat arayan, ne istediğini bilen misafir profili." },
       { type: "mod", title: "Tatlı, meyveli, renkli", cocktails: ["Cheesecake Martini", "Kuğulu", "Cluver Club", "Tekila Sunrise"], detail: "Cheesecake Martini (620₺), Kuğulu (605₺), Cluver Club (620₺), Tekila Sunrise (595₺)", note: "Görsel olarak dikkat çeken ve tatlı profili seven masalar için." },
       { type: "mod", title: "Fresh, hafif, serin", cocktails: ["Gin Tonic", "The Original Mojito", "Kuzuyu Cin Çarptı", "Tom Collins"], detail: "Gin Tonic (560₺), The Original Mojito (625₺), Kuzuyu Cin Çarptı (625₺), Tom Collins (595₺)", note: "Sıcak yaz akşamları veya bayılmadan uzun süre içmek isteyenler." },
@@ -178,7 +178,15 @@
       { type: "yemek", title: "Çıtır Tavuk Parçaları / Basket", bira: ["Efes Fıçı (50cl)", "Miller (50cl)"], kokteyl: ["Tom Collins"], sarap: [], note: "Atıştırmalık basketlerin yanına soğuk fıçı bira veya Miller mükemmel gider." },
       { type: "yemek", title: "Peynir Tabağı", bira: ["Hoegaarden (33cl)"], kokteyl: ["Garrone Prosecco (75 cl)"], sarap: ["Suvla Karasakız (75 cl)", "Peynir Tabagi + 75cl Kabatepe Şarap"], note: "Peynir tabağı ile şarap kampanyasını doğrudan eşleştirin." },
       { type: "yemek", title: "Hamburger / Cheeseburger", bira: ["Efes Fıçı (50cl)", "Amsterdam (50cl)"], kokteyl: ["Whiskey Sour"], sarap: ["Suvla Kabatepe Kırmızı (75 cl)"], note: "Yoğun et ve peynir dengesine gövdeli Suvla Kabatepe Kırmızı çok yakışır." },
-      { type: "yemek", title: "Dana Antrikot / Bonfile", bira: ["Amsterdam (50cl)"], kokteyl: ["Negroni", "Whiskey Sour"], sarap: ["Suvla Cab Sauv Merlot (75 cl)", "Suvla Kitre (75 cl)"], note: "Kırmızı et için zengin aromasıyla Suvla Cab Sauv Merlot veya Kitre." }
+      { type: "yemek", title: "Dana Antrikot / Bonfile", bira: ["Amsterdam (50cl)"], kokteyl: ["Negroni", "Whiskey Sour"], sarap: ["Suvla Cab Sauv Merlot (75 cl)", "Suvla Kitre (75 cl)"], note: "Kırmızı et için zengin aromasıyla Suvla Cab Sauv Merlot veya Kitre." },
+
+      // PİZZA EŞLEŞMELERİ (YENİ EKLENENLER)
+      { type: "yemek", title: "Altıkırkbeş Pizza", bira: ["Amsterdam (50cl)"], kokteyl: ["Negroni", "Whiskey Sour"], sarap: ["Suvla Öküzgözü Boğazkere (75 cl)", "Suvla Kabatepe Kırmızı (75 cl)"], note: "Yoğun ve zengin malzeme profili (sucuk, jambon, sosis, sebzeler ve mantar) nedeniyle damaktaki ağırlığı dengelemek adına gövdeli ve tanenli kırmızı şaraplar harika uyum sağlar." },
+      { type: "yemek", title: "Dana Füme Pizza", bira: ["Miller (50cl)"], kokteyl: ["Tom Collins"], sarap: ["Suvla Kumkale Merlot (75 cl)", "Suvla Kalecik Karası (75 cl)"], note: "Füme etin kendine has tütsülü aroması ve hafif yağlı yapısını tamamlamak için orta gövdeli, meyvemsi ve yumuşak tanenli kırmızı şaraplar ideal bir tercihtir." },
+      { type: "yemek", title: "Dört Peynirli Pizza", bira: ["Hoegaarden (33cl)"], kokteyl: ["Gin Tonic"], sarap: ["Suvla Sav Blanc (75 cl)", "Suvla Kabatepe Beyaz (75 cl)"], note: "İçerisindeki güçlü ve keskin peynirlerin yoğun yağlı ve tuzlu dokusunu dengelemek amacıyla yüksek asiditeli, ferahlatıcı beyaz şaraplar ya da hafif-orta gövdeli alternatifler tercih edilebilir." },
+      { type: "yemek", title: "Mantarlı Pizza", bira: ["Belfast Fıçı (50cl)"], kokteyl: ["Whiskey Sour"], sarap: ["Suvla Öküzgözü Boğazkere (75 cl)", "Suvla Cab Sauv Merlot (75 cl)"], note: "Mantarın topraksı (umami) aromalarını öne çıkarmak için meşe fıçılarda dinlendirilmiş, kompleks aromalara sahip orta gövdeli kırmızı şaraplar uygundur." },
+      { type: "yemek", title: "Napoli Margarita", bira: ["Stella Artois Fıçı (33cl)"], kokteyl: ["The Original Mojito", "Gin Tonic"], sarap: ["Suvla Kabatepe Blush (75 cl)", "Suvla Kabatepe Beyaz Kadeh"], note: "Klasik domates sosu, taze mozzarella ve fesleğenin ferah, hafif ve asiditelli yapısıyla canlı asiditeye sahip sek beyaz şarap veya meyve odaklı blush şaraplar en iyi giden seçeneklerdir." },
+      { type: "yemek", title: "Olympos Güneşi Pizza", bira: ["Amsterdam (50cl)"], kokteyl: ["Long Island Ice Tea", "Hot Passion"], sarap: ["Suvla Öküzgözü Boğazkere (75 cl)", "Suvla Papaz Karası (75 cl)"], note: "Kıyma bolonez sosun zenginliği ve acı-baharatlı karakteri söndürebilmek adına, gövdeli ve hafif tatlımsı baharat notaları barındıran güçlü kırmızı şaraplar dengeli bir kontrast oluşturur." }
     ];
 
     let currentFilter = 'all';
